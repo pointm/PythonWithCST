@@ -3,6 +3,10 @@ import os
 
 
 def quotes_to_list(text):
+    '''
+    这是一个将跨行字符串分行转化为数组的函数
+    一般我在将VBA语句大卸八块的时候会用这个函数作为辅助
+    '''
     lines = text.splitlines()
     quoted_lines = ["" + line.lstrip() + "" for line in lines]
     return quoted_lines
@@ -21,7 +25,7 @@ class COMWithHistory():
             print(self.Classname+'MWS'+'初始化成功')
             pass
 
-    def AddToHistoryWithList(self, mws, Tag, Command):
+    def AddToHistoryWithList(self, Tag, Command):
         '''
         添加到历史树
         Command只能是队列哦，不能传输裸字符串！
@@ -31,18 +35,18 @@ class COMWithHistory():
         Command = line_break.join(Command)  # 这句话表示将每个单句用换行符链接起来
         # AddToHistory ( string caption, string contents ) bool
         # 隶属于ProjectObject的方法，必须使用mws对象进行调用
-        mws._FlagAsMethod("AddToHistory")
-        mws.AddToHistory(Tag, Command)
+        self.mws._FlagAsMethod("AddToHistory")
+        self.mws.AddToHistory(Tag, Command)
 
-    def AddToHistoryWithCommand(self, mws, Tag, Command):
+    def AddToHistoryWithCommand(self, Tag, Command):
         '''
         添加到历史树
         可以传输字符串，适合整段整段懒得改的时候的语句使用
         '''
         # AddToHistory ( string caption, string contents ) bool
         # 隶属于ProjectObject的方法，必须使用mws对象进行调用
-        mws._FlagAsMethod("AddToHistory")
-        mws.AddToHistory(Tag, Command)
+        self.mws._FlagAsMethod("AddToHistory")
+        self.mws.AddToHistory(Tag, Command)
 
 
 class Initial(COMWithHistory):
@@ -302,11 +306,14 @@ def CstSaveAsProject(mws, projectName):
 
 if __name__ == "__main__":
     path = os.getcwd()  # 获取当前py文件所在文件夹路径，方便保存
-    filename = 'Test.cst'  # 保存的文件的名称，但是还没加后缀cst，后面保存的时候会自动加上后缀
+    filename = 'Test.cst'  # 保存的文件的名称，要加后缀cst
     projectName = os.path.join(path, filename)
 
     init = Initial(lable='Open', ProjectName=projectName)
     mws = init.mws
     # CstSaveAsProject(mws, projectName)
+    SimulateFrequency = [8, 9]
 
-    SimulateFrequency = [6, 7]
+    history = COMWithHistory(mws)
+    history.AddToHistoryWithCommand(
+        'SetFrequencyRange', 'Solver.FrequencyRange "%f", "%f"' % (SimulateFrequency[0], SimulateFrequency[1]))
