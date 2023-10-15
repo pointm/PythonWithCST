@@ -429,7 +429,6 @@ End With'''
     .Segments ("{self.Segments}")
     .Create
 End With'''
-        print(sCommand)
         self.AddToHistoryWithCommand(Tag=Tag, Command=sCommand)
 
 
