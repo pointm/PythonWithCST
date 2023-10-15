@@ -86,7 +86,7 @@ class Initial(COMWithHistory):
                     '.Type "PEC"',
                     'End With']
         self.AddToHistoryWithList(
-            mws=mws, Tag='Background Initial', Command=sCommand)
+            Tag='Background Initial', Command=sCommand)
 
     def UnitInitial(self, mws):
         sCommand = ['With Units',
@@ -94,7 +94,7 @@ class Initial(COMWithHistory):
                     '.Frequency "ghz"',
                     '.Time "ns"',
                     'End With']
-        self.AddToHistoryWithList(mws, Tag='Unit Initial', Command=sCommand)
+        self.AddToHistoryWithList(Tag='Unit Initial', Command=sCommand)
 
     def BoundaryInitial(self, mws):
         sCommand = ['With Boundary',
@@ -109,7 +109,7 @@ class Initial(COMWithHistory):
                     '.Zsymmetry "none"',
                     'End With']
         self.AddToHistoryWithList(
-            mws, Tag='Boundary Initial', Command=sCommand)
+            Tag='Boundary Initial', Command=sCommand)
 
     def StoreParameter(self, mws, parametername, parametervalue, description):
         sCommand = '''  
@@ -117,7 +117,7 @@ class Initial(COMWithHistory):
         SetParameterDescription  ( "%s", "%s" )
     ''' % (parametername, parametervalue, parametername, description)
         self.AddToHistoryWithCommand(
-            mws=mws, Tag='Store Parameter %s' % parametername, Command=sCommand)
+            Tag='Store Parameter %s' % parametername, Command=sCommand)
 
 
 class Material(COMWithHistory):
@@ -309,10 +309,10 @@ if __name__ == "__main__":
     filename = 'Test.cst'  # 保存的文件的名称，要加后缀cst
     projectName = os.path.join(path, filename)
 
-    # init = Initial(lable='Open', ProjectName=projectName)
-    init = Initial()
+    init = Initial(lable='Open', ProjectName=projectName)
+    # init = Initial()
     mws = init.mws
-    CstSaveAsProject(mws, projectName)  # 在新建时候保存用
+    # CstSaveAsProject(mws, projectName)  # 在新建时候保存用
     SimulateFrequency = [8, 9]
 
     history = COMWithHistory(mws)
