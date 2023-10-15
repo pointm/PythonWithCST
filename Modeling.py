@@ -745,7 +745,7 @@ if __name__ == "__main__":
     # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
     transportwaveguide = Brick(mws)
     transportwaveguide.init(waveguide.Component, 'TW', waveguide.Material, [
-                            '-a/2', 'a/2'], ['-s/2', 's/2'], [0, 't'])
+                            '-a/2', 'a/2'], ['-b/2*0.75', 'b/2*0.75'], [0, 't'])
     transportwaveguide.create('添加过渡波导')
     solid.Add('将脊波导与过渡波导相加', waveguide.Component,
               waveguide.Name, waveguide.Component, 'TW')
@@ -773,8 +773,95 @@ if __name__ == "__main__":
 
     # 开始求解
     scommand = '''
+    Mesh.SetCreator "High Frequency" 
+
     With FDSolver
-        .Start
+        .Reset 
+        .SetMethod "Tetrahedral", "General purpose" 
+        .OrderTet "Second" 
+        .OrderSrf "First" 
+        .Stimulation "All", "All" 
+        .ResetExcitationList 
+        .AutoNormImpedance "False" 
+        .NormingImpedance "50" 
+        .ModesOnly "False" 
+        .ConsiderPortLossesTet "True" 
+        .SetShieldAllPorts "False" 
+        .AccuracyHex "1e-6" 
+        .AccuracyTet "1e-5" 
+        .AccuracySrf "1e-3" 
+        .LimitIterations "False" 
+        .MaxIterations "0" 
+        .SetCalcBlockExcitationsInParallel "True", "True", "" 
+        .StoreAllResults "False" 
+        .StoreResultsInCache "False" 
+        .UseHelmholtzEquation "True" 
+        .LowFrequencyStabilization "True" 
+        .Type "Direct" 
+        .MeshAdaptionHex "False" 
+        .MeshAdaptionTet "True" 
+        .AcceleratedRestart "True" 
+        .FreqDistAdaptMode "Distributed" 
+        .NewIterativeSolver "True" 
+        .TDCompatibleMaterials "False" 
+        .ExtrudeOpenBC "False" 
+        .SetOpenBCTypeHex "Default" 
+        .SetOpenBCTypeTet "Default" 
+        .AddMonitorSamples "True" 
+        .CalcPowerLoss "True" 
+        .CalcPowerLossPerComponent "False" 
+        .StoreSolutionCoefficients "True" 
+        .UseDoublePrecision "False" 
+        .UseDoublePrecision_ML "True" 
+        .MixedOrderSrf "False" 
+        .MixedOrderTet "False" 
+        .PreconditionerAccuracyIntEq "0.15" 
+        .MLFMMAccuracy "Default" 
+        .MinMLFMMBoxSize "0.3" 
+        .UseCFIEForCPECIntEq "True" 
+        .UseEnhancedCFIE2 "True" 
+        .UseFastRCSSweepIntEq "false" 
+        .UseSensitivityAnalysis "False" 
+        .UseEnhancedNFSImprint "False" 
+        .RemoveAllStopCriteria "Hex"
+        .AddStopCriterion "All S-Parameters", "0.01", "2", "Hex", "True"
+        .AddStopCriterion "Reflection S-Parameters", "0.01", "2", "Hex", "False"
+        .AddStopCriterion "Transmission S-Parameters", "0.01", "2", "Hex", "False"
+        .RemoveAllStopCriteria "Tet"
+        .AddStopCriterion "All S-Parameters", "0.01", "2", "Tet", "True"
+        .AddStopCriterion "Reflection S-Parameters", "0.01", "2", "Tet", "False"
+        .AddStopCriterion "Transmission S-Parameters", "0.01", "2", "Tet", "False"
+        .AddStopCriterion "All Probes", "0.05", "2", "Tet", "True"
+        .RemoveAllStopCriteria "Srf"
+        .AddStopCriterion "All S-Parameters", "0.01", "2", "Srf", "True"
+        .AddStopCriterion "Reflection S-Parameters", "0.01", "2", "Srf", "False"
+        .AddStopCriterion "Transmission S-Parameters", "0.01", "2", "Srf", "False"
+        .SweepMinimumSamples "3" 
+        .SetNumberOfResultDataSamples "5001" 
+        .SetResultDataSamplingMode "Automatic" 
+        .SweepWeightEvanescent "1.0" 
+        .AccuracyROM "1e-4" 
+        .AddSampleInterval "", "", "1", "Automatic", "True" 
+        .AddSampleInterval "", "", "", "Automatic", "False" 
+        .MPIParallelization "False"
+        .UseDistributedComputing "False"
+        .NetworkComputingStrategy "RunRemote"
+        .NetworkComputingJobCount "3"
+        .UseParallelization "True"
+        .MaxCPUs "1024"
+        .MaximumNumberOfCPUDevices "2"
+    End With
+
+    With IESolver
+        .Reset 
+        .UseFastFrequencySweep "True" 
+        .UseIEGroundPlane "False" 
+        .SetRealGroundMaterialName "" 
+        .CalcFarFieldInRealGround "False" 
+        .RealGroundModelType "Auto" 
+        .PreconditionerType "Auto" 
+        .ExtendThinWireModelByWireNubs "False" 
+        .ExtraPreconditioning "False" 
     End With
     '''
     history.AddToHistoryWithCommand('启动', scommand)
