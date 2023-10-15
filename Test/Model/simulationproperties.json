@@ -1,0 +1,34 @@
+{
+    "active_solver": "HF Time Domain",
+    "frequency": {
+        "maximum": 0.0,
+        "maximum_expr": "0.0",
+        "minimum": 0.0,
+        "minimum_expr": "0.0",
+        "unit": "GHz"
+    },
+    "run_options": {
+        "optimizer_run": false,
+        "parameter_sweep_run": false,
+        "single_solver_run": true
+    },
+    "solver_support": {
+        "HF Time Domain": {
+            "dc_multi_node": true,
+            "dc_para_opt_multi_node": false,
+            "gpu": true,
+            "mpi": true,
+            "mpi_gpu": true,
+            "multi_gpu": true,
+            "price model": "Premium",
+            "user acc settings": {
+                "cpu devices": 2,
+                "dc nodes": 0,
+                "gpu devices": 0,
+                "mpi nodes": 0,
+                "threads or phys cores": 1024
+            }
+        }
+    },
+    "version": 3
+}
