@@ -356,19 +356,20 @@ class Brick(GeneralModel):
         self.Xrange = Xrange
         self.Yrange = Yrange
         self.Zrange = Zrange
+        return self
 
     def create(self, Tag):
-        Command = ['With Brick',
-                   '.Reset',
-                   '.Name "%s"' % self.Name,
-                   '.Component "%s"' % self.Component,
-                   '.Material "%s"' % self.Material,
-                   '.Xrange "%s", "%s"' % (self.Xrange[0], self.Xrange[1]),
-                   '.Yrange "%s", "%s"' % (self.Yrange[0], self.Yrange[1]),
-                   '.Zrange "%s", "%s"' % (self.Zrange[0], self.Zrange[1]),
-                   '.Create',
-                   'End With']
-        self.AddToHistoryWithList(Tag, Command)
+        Command = f'''With Brick
+     .Reset 
+     .Name "{self.Name}" 
+     .Component "{self.Component}" 
+     .Material "{self.Material}" 
+     .Xrange "{self.Xrange[0]}", "{self.Xrange[1]}" 
+     .Yrange "{self.Yrange[0]}", "{self.Yrange[1]}"
+     .Zrange "{self.Zrange[0]}", "{self.Zrange[1]}" 
+     .Create
+End With'''
+        self.AddToHistoryWithCommand(Tag, Command)
 
 
 class Cylinder(GeneralModel):
@@ -397,6 +398,7 @@ class Cylinder(GeneralModel):
         self.Range = Range
         self.Segments = Segments
         self.Axis = Axis
+        return self
 
     def create(self, Tag):
         sCommand = f'''With Cylinder
@@ -432,13 +434,243 @@ End With'''
         self.AddToHistoryWithCommand(Tag=Tag, Command=sCommand)
 
 
+class Pick(COMWithHistory):
+    def __init__(self, handle) -> None:
+        self.mws = handle
+        pass
+
+    def PickCenterpointFromId(self, Tag, Component, Name, Id):
+        sCommand = f'Pick.PickCenterpointFromId "{Component}:{Name}", "{Id}"'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+    def PickFaceFromId(self, Tag, Component, Name, Id):
+        sCommand = f'Pick.PickFaceFromId "{Component}:{Name}", "{Id}"'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+
+class WCS(COMWithHistory):
+    def __init__(self, handle) -> None:
+        self.mws = handle
+
+    def AlignWCSWithSelectedPoint(self, Tag):
+        self.AddToHistoryWithCommand(Tag, 'WCS.AlignWCSWithSelected "Point"')
+
+    def ActivateWCSGlobal(self, Tag):
+        self.AddToHistoryWithCommand(Tag, 'WCS.ActivateWCS "global"')
+
+
+class Transform(COMWithHistory):
+    def __init__(self, handle) -> None:
+        self.mws = handle
+        pass
+
+    def MirrorTransForm(self, Tag, Component, Name, NormalVector, Copy):
+        sCommand = f'''With Transform 
+     .Reset 
+     .Name "{Component}:{Name}" 
+     .Origin "Free" 
+     .Center "0", "0", "0" 
+     .PlaneNormal "{NormalVector[0]}", "{NormalVector[1]}", "{NormalVector[2]}" 
+     .MultipleObjects "{Copy}" 
+     .GroupObjects "False" 
+     .Repetitions "1" 
+     .MultipleSelection "False" 
+     .Destination "" 
+     .Material "" 
+     .AutoDestination "True" 
+     .Transform "Shape", "Mirror" 
+End With
+'''
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+
+class Solid(COMWithHistory):
+    def __init__(self, handle) -> None:
+        self.mws = handle
+    pass
+
+    def Subtract(self, Tag, component1, name1, component2, name2):
+        sCommand = f'Solid.Subtract "{component1}:{name1}", "{component2}:{name2}"'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+    def Add(self, Tag, component1, name1, component2, name2):
+        sCommand = f'Solid.Add "{component1}:{name1}", "{component2}:{name2}"'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+
+class Port(COMWithHistory):
+    PortNumber = 1
+    NumberOfModes = 1
+    Coordinates = 'Picks'
+    Orientation = 'positive'
+    PortOnBound = 'True'
+    AdjustPolarization = 'False'
+    Xrange = 0
+    XrangeAdd = 0
+    Yrange = 0
+    YrangeAdd = 0
+    Zrange = 0
+    ZrangeAdd = 0
+
+    def __init__(self, handle) -> None:
+        self.mws = handle
+    pass
+
+    def init(self, Tag, Range, AddRange, **kwargs):
+        self.Tag = Tag
+        self.Xrange = Range[0]
+        self.Yrange = Range[1]
+        self.Zrange = Range[2]
+        self.XrangeAdd = AddRange[0]
+        self.YrangeAdd = AddRange[1]
+        self.ZrangeAdd = AddRange[2]
+        for key, value in kwargs.items():
+            match key:
+                case 'PortNumber':
+                    self.PortNumber = value
+                case 'NumberOfModes':
+                    self.NumberOfModes = value
+                case 'Coordinates':
+                    self.Coordinates = value
+                case 'Orientation':
+                    self.Orientation = value
+                case 'PortOnBound':
+                    self.PortOnBound = value
+                case 'AdjustPolarization':
+                    self.AdjustPolarization = value
+
+    def create(self):
+        sCommand = f'''
+    With Port 
+        .Reset 
+        .PortNumber "{self.PortNumber}" 
+        .Label ""
+        .Folder ""
+        .NumberOfModes "{self.NumberOfModes}"
+        .AdjustPolarization "{self.AdjustPolarization}"
+        .PolarizationAngle "0.0"
+        .ReferencePlaneDistance "0"
+        .TextSize "50"
+        .TextMaxLimit "0"
+        .Coordinates "{self.Coordinates}"
+        .Orientation "{self.Orientation}"
+        .PortOnBound "{self.PortOnBound}"
+        .ClipPickedPortToBound "False"
+        .Xrange "{self.Xrange[0]}", "{self.Xrange[1]}"
+        .Xrange "{self.Xrange[0]}", "{self.Xrange[1]}"
+        .Yrange "{self.Zrange[0]}", "{self.Zrange[1]}"
+        .XrangeAdd "{self.XrangeAdd[0]}", "{self.XrangeAdd[1]}"
+        .XrangeAdd "{self.XrangeAdd[0]}", "{self.XrangeAdd[1]}"
+        .ZrangeAdd "{self.ZrangeAdd[0]}", "{self.ZrangeAdd[1]}"
+        .SingleEnded "False"
+        .WaveguideMonitor "False"
+        .Create 
+    End With'''
+        self.AddToHistoryWithCommand(
+            'Add Port' + str(self.PortNumber), sCommand)
+
+
+class Mesh(COMWithHistory):
+    StepsPerWaveNear = 17
+    StepsPerWaveFar = 10
+    StepsPerBoxNear = 12
+    StepsPerBoxFar = 10
+    MeshType = "Tetrahedral"
+    SetCreator = "High Frequency"
+
+    def __init__(self, handle) -> None:
+        self.mws = handle
+
+    def init(self, StepsPerWaveNear, StepsPerWaveFar, StepsPerBoxNear, StepsPerBoxFar, **kwargs):
+        self.StepsPerBoxNear = StepsPerBoxNear
+        self.StepsPerBoxFar = StepsPerBoxFar
+        self.StepsPerWaveNear = StepsPerWaveNear
+        self.StepsPerWaveFar = StepsPerWaveFar
+        for key, value in kwargs.items():
+            match key:
+                case 'MeshType':
+                    self.MeshType = value
+                case 'SetCreator':
+                    self.SetCreator = value
+
+    def MeshUpdate(self, Tag):
+        sCommand = f'''
+        With Mesh 
+            .MeshType "{self.MeshType}" 
+            .SetCreator "{self.SetCreator}"
+        End With 
+        With MeshSettings 
+            'MAX CELL - WAVELENGTH REFINEMENT 
+            .Set "StepsPerWaveNear", "{self.StepsPerWaveNear}" 
+            .Set "StepsPerWaveFar", "{self.StepsPerWaveFar}" 
+            .Set "PhaseErrorNear", "0.02" 
+            .Set "PhaseErrorFar", "0.02" 
+            .Set "CellsPerWavelengthPolicy", "cellsperwavelength" 
+            'MAX CELL - GEOMETRY REFINEMENT 
+            .Set "StepsPerBoxNear", "{self.StepsPerBoxNear}" 
+            .Set "StepsPerBoxFar", "{self.StepsPerBoxFar}" 
+            .Set "ModelBoxDescrNear", "maxedge" 
+            .Set "ModelBoxDescrFar", "maxedge" 
+            'MIN CELL 
+            .Set "UseRatioLimit", "0" 
+            .Set "RatioLimit", "100" 
+            .Set "MinStep", "0" 
+            'MESHING METHOD 
+            .SetMeshType "Unstr" 
+            .Set "Method", "0" 
+        End With 
+        With MeshSettings 
+            .SetMeshType "Tet" 
+            .Set "CurvatureOrder", "1" 
+            .Set "CurvatureOrderPolicy", "automatic" 
+            .Set "CurvRefinementControl", "NormalTolerance" 
+            .Set "NormalTolerance", "22.5" 
+            .Set "SrfMeshGradation", "1.5" 
+            .Set "SrfMeshOptimization", "1" 
+        End With 
+        With MeshSettings 
+            .SetMeshType "Unstr" 
+            .Set "UseMaterials",  "1" 
+            .Set "MoveMesh", "0" 
+        End With 
+        With MeshSettings 
+            .SetMeshType "All" 
+            .Set "AutomaticEdgeRefinement",  "0" 
+        End With 
+        With MeshSettings 
+            .SetMeshType "Tet" 
+            .Set "UseAnisoCurveRefinement", "1" 
+            .Set "UseSameSrfAndVolMeshGradation", "1" 
+            .Set "VolMeshGradation", "1.5" 
+            .Set "VolMeshOptimization", "1" 
+        End With 
+        With MeshSettings 
+            .SetMeshType "Unstr" 
+            .Set "SmallFeatureSize", "0" 
+            .Set "CoincidenceTolerance", "1e-06" 
+            .Set "SelfIntersectionCheck", "1" 
+            .Set "OptimizeForPlanarStructures", "0" 
+        End With 
+        With Mesh 
+            .SetParallelMesherMode "Tet", "maximum" 
+            .SetMaxParallelMesherThreads "Tet", "1" 
+        End With
+        '''
+        sCommand = sCommand+'''
+        With Mesh 
+            .Update 
+        End With
+        '''
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+
 def CstSaveAsProject(mws, projectName):
     mws._FlagAsMethod("SaveAs")
     mws.SaveAs(projectName, 'false')
 
 
 if __name__ == "__main__":
-    path = os.getcwd()  # 获取当前py文件所在文件夹路径，方便保存
+    path = os.path.dirname(os.path.abspath(__file__))  # 获取当前py文件所在文件夹路径，方便保存
     filename = 'Test.cst'  # 保存的文件的名称，要加后缀cst
     projectName = os.path.join(path, filename)
 
@@ -478,4 +710,72 @@ if __name__ == "__main__":
                         'z', 0, 'wr', [0, 0, 0], ['-wt/2', 'wt/2'])
     cylinderwindow.create('创建圆柱形蓝宝石窗片')
 
+    # 选取圆柱形窗片中点，将坐标系进行位移
+    pick = Pick(mws)
+    pick.PickCenterpointFromId(
+        '选取圆柱窗片中心点', cylinderwindow.Component, cylinderwindow.Name, 3)
+    wcs = WCS(mws)
+    wcs.AlignWCSWithSelectedPoint('将中心点移到圆柱窗片中心')
+
+    # 进行脊波导的建模
+    waveguide = Brick(mws)
+    L = 10
+    waveguide.init('WaveGuide', 'DRW', 'Vacuum', [
+                   '-a/2', 'a/2'], ['-b/2', 'b/2'], [0, L])
+    waveguide.create('创建双脊波导本体')
+
+    cutoff = Brick(mws)
+    cutoff.init('WaveGuide', 'cutoff', 'Vacuum', [
+                '-d/2', 'd/2'], ['c/2', 'b/2'], [0, L])
+    cutoff.create('创建被切除部分')
+
+    trans = Transform(mws)
+    trans.MirrorTransForm('镜像切除部分', cutoff.Component,
+                          cutoff.Name, [0, -1, 0], True)
+
+    # 切除波导冗余部位
+    solid = Solid(mws)
+    solid.Subtract('开始减去部位1', waveguide.Component, waveguide.Name,
+                   cutoff.Component, cutoff.Name)
+    solid.Subtract('开始减去部位2', waveguide.Component, waveguide.Name,
+                   cutoff.Component, cutoff.Name+'_1')
+    # trans.MirrorTransForm('镜像脊波导', waveguide.Component,
+    #                       waveguide.Name, [0, 0, -1], True)
+
+    # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
+    transportwaveguide = Brick(mws)
+    transportwaveguide.init(waveguide.Component, 'TW', waveguide.Material, [
+                            '-a/2', 'a/2'], ['-s/2', 's/2'], [0, 't'])
+    transportwaveguide.create('添加过渡波导')
+    solid.Add('将脊波导与过渡波导相加', waveguide.Component,
+              waveguide.Name, waveguide.Component, 'TW')
+
+    # 创建全局坐标系，进行变换
+    wcs.ActivateWCSGlobal('激活全局坐标系，准备变换')
+    trans.MirrorTransForm('将创建完成的脊波导进行镜像', waveguide.Component,
+                          waveguide.Name, [0, 0, -1], True)
+    # 选取面，并且设置端口
+    pick.PickFaceFromId('选取面1', waveguide.Component, waveguide.Name, 27)
+    setport = Port(mws)
+    setport.init('添加端口1', [['-a/2', 'a/2'], ['-b/2', 'b/2'],
+                           ['wt/2+10', 'wt/2+10']], [[0, 0], [0, 0], [0, 0]], PortNumber=1)
+    setport.create()
+
+    pick.PickFaceFromId('选取面2', waveguide.Component, waveguide.Name + '_1', 27)
+    setport.init('添加端口2', [['-a/2', 'a/2'], ['-b/2', 'b/2'],
+                           ['-(wt/2+10)', '-(wt/2+10)']], [[0, 0], [0, 0], [0, 0]], PortNumber=2)
+    setport.create()
+
+    # 更新网格
+    mesh = Mesh(mws)
+    mesh.init(20, 21, 20, 21)
+    mesh.MeshUpdate('网格更新')
+
+    # 开始求解
+    scommand = '''
+    With FDSolver
+        .Start
+    End With
+    '''
+    history.AddToHistoryWithCommand('启动', scommand)
     pass
