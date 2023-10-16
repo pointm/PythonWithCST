@@ -1,3 +1,8 @@
+'''
+encode with UTF-8
+PYTHON version 3.11.4 64-bit
+CST Studio version 2022
+'''
 import math
 import win32com.client
 import os
@@ -116,7 +121,11 @@ class Initial(StructureMacros):
     def StoreParameters(self, parameters):
         sCommand = ''
         for parameter in parameters:
-            sCommand = sCommand + '''  
+            if parameter == ['']:
+                # 过滤掉文件开头或者结尾的空行
+                pass
+            else:
+                sCommand = sCommand + '''  
             MakeSureParameterExists("{0}", {1})
             SetParameterDescription  ( "{2}", {3} )
         '''.format(parameter[0], parameter[1], parameter[0], parameter[2])
@@ -460,6 +469,9 @@ class WCS(StructureMacros):
     def ActivateWCSGlobal(self, Tag):
         self.AddToHistoryWithCommand(Tag, 'WCS.ActivateWCS "global"')
 
+    def AlignWCSWithSelectedFace(self, Tag):
+        self.AddToHistoryWithCommand(Tag, 'WCS.AlignWCSWithSelected "Face"')
+
 
 class Transform(StructureMacros):
     def __init__(self, handle) -> None:
@@ -479,7 +491,6 @@ class Transform(StructureMacros):
      .MultipleSelection "False" 
      .Destination "" 
      .Material "" 
-     .AutoDestination "True" 
      .Transform "Shape", "Mirror" 
 End With
 '''
@@ -507,25 +518,21 @@ class Port(StructureMacros):
     Orientation = 'positive'
     PortOnBound = 'True'
     AdjustPolarization = 'False'
-    Xrange = 0
-    XrangeAdd = 0
-    Yrange = 0
-    YrangeAdd = 0
-    Zrange = 0
-    ZrangeAdd = 0
+    Xrange = [0, 0]
+    XrangeAdd = [0, 0]
+    Yrange = [0, 0]
+    YrangeAdd = [0, 0]
+    Zrange = [0, 0]
+    ZrangeAdd = [0, 0]
 
     def __init__(self, handle) -> None:
         self.mws = handle
     pass
 
-    def init(self, Tag, Range, AddRange, **kwargs):
-        self.Tag = Tag
+    def init(self,  Range,  **kwargs):
         self.Xrange = Range[0]
         self.Yrange = Range[1]
         self.Zrange = Range[2]
-        self.XrangeAdd = AddRange[0]
-        self.YrangeAdd = AddRange[1]
-        self.ZrangeAdd = AddRange[2]
         for key, value in kwargs.items():
             match key:
                 case 'PortNumber':
@@ -540,8 +547,13 @@ class Port(StructureMacros):
                     self.PortOnBound = value
                 case 'AdjustPolarization':
                     self.AdjustPolarization = value
+                case 'AddRange':
+                    self.XrangeAdd = [0]
+                    self.YrangeAdd = [1]
+                    self.ZrangeAdd = [2]
 
-    def create(self):
+    def create(self, Tag):
+        self.Tag = Tag
         sCommand = f'''
     With Port 
         .Reset 
@@ -568,8 +580,8 @@ class Port(StructureMacros):
         .WaveguideMonitor "False"
         .Create 
     End With'''
-        self.AddToHistoryWithCommand(
-            'Add Port' + str(self.PortNumber), sCommand)
+        self.AddToHistoryWithCommand(self.Tag +
+                                     'Add Port' + str(self.PortNumber), sCommand)
 
 
 class Mesh(StructureMacros):
@@ -857,13 +869,14 @@ if __name__ == "__main__":
     # 加载变量名
     parametersfilename = 'ParameterList.txt'
     parameterspath = os.path.join(path, parametersfilename)
-    originalparameters = open(parameterspath).readlines()  # 按行读取文件
+    # 按行读取文件，有可能会出现编码错误，出现的话记得在open的后面加上编码(encode='utf-8')当然没出现的话就不管了
+    originalparameters = open(parameterspath).readlines()
 
     parameters = []
     for item in originalparameters:
         item = item.replace('\n', '')  # 去除换行符
-        item = re.sub("[= ]", '#', item)  # 将没用的符号置换成分隔符
-        item = item.split('#')  # 按照分隔符分开整行的指令
+        item = re.sub("[= ]", '#', item)  # 将没用的符号批量置换成分隔符
+        item = item.split('#')  # 按照分隔符分开整行
         parameters.append(item)
 
     # 将处理好的变量存储到应用中
