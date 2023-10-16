@@ -661,6 +661,10 @@ class Mesh(COMWithHistory):
             .Update 
         End With
         '''
+        sCommand = sCommand + '''   
+        With FDSolver
+            .Start
+        End With'''
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
@@ -766,17 +770,11 @@ if __name__ == "__main__":
                            ['-(wt/2+10)', '-(wt/2+10)']], [[0, 0], [0, 0], [0, 0]], PortNumber=2)
     setport.create()
 
-    # 更新网格(我不会写网格更新（悲）)
+    # 更新网格并且求解(我不会写网格更新（悲）)
     mesh = Mesh(mws)
     mesh.init(10, 5, 6, 5)
     mesh.MeshUpdate('网格更新')
 
-    # 开始求解（我不会写求解器（悲））
-    scommand = '''
-    With FDSolver
-        .Start
-    End With
-'''
-    history.AddToHistoryWithCommand('开始求解', scommand)
     # 求解后处理
+
     pass
