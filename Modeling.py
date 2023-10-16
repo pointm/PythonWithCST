@@ -15,9 +15,9 @@ def quotes_to_list(text):
     return quoted_lines
 
 
-class COMWithHistory():
+class StructureMacros():
     mws = None
-    Classname = 'COMWithHistory'
+    Classname = 'StructureMacros'
 
     def __init__(self, handle) -> None:
         self.mws = handle
@@ -51,7 +51,7 @@ class COMWithHistory():
         self.mws.AddToHistory(Tag, Command)
 
 
-class Initial(COMWithHistory):
+class Initial(StructureMacros):
     cst = None
     mws = None
 
@@ -238,7 +238,7 @@ class Initial(COMWithHistory):
             'Template:WaveGuide And Cavity Filter', sCommand)
 
 
-class Material(COMWithHistory):
+class Material(StructureMacros):
     MaterialName = ''
     MaterialEpsilon = 0
     MaterialMu = 0
@@ -327,7 +327,7 @@ End With
         return self
 
 
-class GeneralModel(COMWithHistory):
+class GeneralModel(StructureMacros):
     Component = ''
     Name = ''
     Material = ''
@@ -436,7 +436,7 @@ End With'''
         self.AddToHistoryWithCommand(Tag=Tag, Command=sCommand)
 
 
-class Pick(COMWithHistory):
+class Pick(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
         pass
@@ -450,7 +450,7 @@ class Pick(COMWithHistory):
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
-class WCS(COMWithHistory):
+class WCS(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
 
@@ -461,7 +461,7 @@ class WCS(COMWithHistory):
         self.AddToHistoryWithCommand(Tag, 'WCS.ActivateWCS "global"')
 
 
-class Transform(COMWithHistory):
+class Transform(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
         pass
@@ -486,7 +486,7 @@ End With
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
-class Solid(COMWithHistory):
+class Solid(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
     pass
@@ -500,7 +500,7 @@ class Solid(COMWithHistory):
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
-class Port(COMWithHistory):
+class Port(StructureMacros):
     PortNumber = 1
     NumberOfModes = 1
     Coordinates = 'Picks'
@@ -572,7 +572,7 @@ class Port(COMWithHistory):
             'Add Port' + str(self.PortNumber), sCommand)
 
 
-class Mesh(COMWithHistory):
+class Mesh(StructureMacros):
     StepsPerWaveNear = 17
     StepsPerWaveFar = 10
     StepsPerBoxNear = 12
@@ -666,7 +666,7 @@ class Mesh(COMWithHistory):
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
-class Solver(COMWithHistory):
+class Solver(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
 
@@ -850,7 +850,7 @@ if __name__ == "__main__":
     # CstSaveAsProject(mws, projectName)  # 在新建时候保存用
     SimulateFrequency = [8, 9]
     # 使用模板来对项目进行初始化
-    history = COMWithHistory(mws)
+    history = StructureMacros(mws)
     init.UseTemplate(Template='WaveGuide And Cavity Filter',
                      FrequencyRange=SimulateFrequency)
 
