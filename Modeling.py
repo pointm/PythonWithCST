@@ -1,3 +1,4 @@
+import math
 import win32com.client
 import os
 import re
@@ -902,6 +903,23 @@ if __name__ == "__main__":
     # # 进行求解(我也不会写求解器(悲))
     # solver = Solver(mws)
     # solver.FDSolver()
-    # 求解后处理
+    # 求解S参数后处理
+    TreeItem = "1D Results\\S-Parameters\\S1,1"  # (python记得写双斜杠哦)
+    # 'get an array of existing result ids for this tree item
+    IDs = mws.Resulttree.GetResultIDsFromTreeItem(TreeItem)
+    for N in range(len(IDs)):
+        spara = mws.Resulttree.GetResultFromTreeItem(TreeItem, IDs[N])
+        resulttype = spara.GetResultObjectType
+        if resulttype == "1DC":
+            print("First data point: "+str(spara.GetYRe(0)) +
+                  ","+str(spara.GetYIm(0)))
+            # 'access data of R1DC Object
+            if mws.Resulttree.TreeItemHasImpedance(TreeItem, IDs[N]):
+                ref_imp = mws.Resulttree.GetImpedanceResultFromTreeItem(
+                    TreeItem, IDs[N])
+                # 'access data of R1DC Object containing ref. imp.
+                print("Ref. Imp. :" + str(ref_imp.GetYRe(0)) +
+                      ","+str(ref_imp.GetYIm(0)))
+                pass
 
     pass
