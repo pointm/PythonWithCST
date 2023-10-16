@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaGeometryFile version="20200202" creator="TetMesher">
+  <Components>
+    <Shape name="Components\Window:SapphireWindow" id="0" visible="1" material="Sapphire" line_material="">
+      <MeshGroup0D list=""/>
+      <MeshGroup1D list=""/>
+      <MeshGroup2D>
+        <Pos list="235 237 238 239 240"/>
+        <Neg list="236 241"/>
+        <DS list=""/>
+      </MeshGroup2D>
+      <MeshGroup3D list="242"/>
+    </Shape>
+    <Shape name="Components\WaveGuide:DRW_1" id="1" visible="1" material="Vacuum" line_material="">
+      <MeshGroup0D list=""/>
+      <MeshGroup1D list=""/>
+      <MeshGroup2D>
+        <Pos list="216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 241"/>
+        <Neg list=""/>
+        <DS list=""/>
+      </MeshGroup2D>
+      <MeshGroup3D list="243"/>
+    </Shape>
+    <Shape name="Components\WaveGuide:DRW" id="2" visible="1" material="Vacuum" line_material="">
+      <MeshGroup0D list=""/>
+      <MeshGroup1D list=""/>
+      <MeshGroup2D>
+        <Pos list="197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 236"/>
+        <Neg list=""/>
+        <DS list=""/>
+      </MeshGroup2D>
+      <MeshGroup3D list="244"/>
+    </Shape>
+    <Shape name="Components\WaveGuide:DRW\PEC_Background" id="3" visible="1" material="Vacuum" line_material="">
+      <MeshGroup0D list=""/>
+      <MeshGroup1D list=""/>
+      <MeshGroup2D>
+        <Pos list=""/>
+        <Neg list="197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215"/>
+        <DS list=""/>
+      </MeshGroup2D>
+      <MeshGroup3D list=""/>
+    </Shape>
+    <Shape name="Components\WaveGuide:DRW_1\PEC_Background" id="4" visible="1" material="Vacuum" line_material="">
+      <MeshGroup0D list=""/>
+      <MeshGroup1D list=""/>
+      <MeshGroup2D>
+        <Pos list=""/>
+        <Neg list="216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234"/>
+        <DS list=""/>
+      </MeshGroup2D>
+      <MeshGroup3D list=""/>
+    </Shape>
+    <Shape name="Components\Window:SapphireWindow\PEC_Background" id="5" visible="1" material="Sapphire" line_material="">
+      <MeshGroup0D list=""/>
+      <MeshGroup1D list=""/>
+      <MeshGroup2D>
+        <Pos list=""/>
+        <Neg list="235 237 238 239 240"/>
+        <DS list=""/>
+      </MeshGroup2D>
+      <MeshGroup3D list=""/>
+    </Shape>
+  </Components>
+  <Materials>
+    <Material name="PEC" priority="1">
+      <Drawstyle color="0.800000012 0.800000012 0.800000012" transparency="0" linestrength="1"/>
+    </Material>
+    <Material name="Vacuum" priority="1">
+      <Drawstyle color="0.5 0.800000012 1" transparency="0" linestrength="1"/>
+    </Material>
+    <Material name="air_0" priority="1">
+      <Drawstyle color="0 1 1" transparency="0" linestrength="1"/>
+    </Material>
+    <Material name="Sapphire" priority="1">
+      <Drawstyle color="0 1 0" transparency="0" linestrength="1"/>
+    </Material>
+    <Material name="$NFSMaterial$" priority="1">
+      <Drawstyle color="0 1 1" transparency="0" linestrength="1"/>
+    </Material>
+  </Materials>
+  <Groups/>
+  <SimulationDomain min="-9.14500046 -6.21000004 -10.1000004" max="9.14500046 6.21000004 10.1000004"/>
+  <MeshType type="TETRAHEDRAL"/>
+  <HexMesh>
+    <Dimensions nx="22" ny="18" nz="23"/>
+    <MeshPlanesX values="-9.1450004577636719 -8.2740480332147524 -7.4030956086658328 -6.5321431841169124 -5.661190759567992 -4.7902383350190707 -3.9192859104701507 -3.0483334859212299 -2.1773810613723095 -1.3064286368233891 -0.43547621227446776 0.43547621227445243 1.3064286368233728 2.177381061372293 3.0483334859212134 3.9192859104701339 4.7902383350190529 5.6611907595679734 6.5321431841168938 7.4030956086658142 8.2740480332147346 9.1450004577636719"/>
+    <MeshPlanesY values="-6.2100000381469727 -5.4794117983649766 -4.7488235585829806 -4.0182353188009836 -3.2876470790189871 -2.5570588392369906 -1.8264705994549946 -1.0958823596729987 -0.36529411989100175 0.36529411989100152 1.0958823596730038 1.8264705994550072 2.5570588392370106 3.2876470790190124 4.0182353188010147 4.7488235585830187 5.4794117983650201 6.2100000381469727"/>
+    <MeshPlanesZ values="-10.100000381469727 -9.1818185286088401 -8.2636366757479518 -7.3454548228870671 -6.4272729700261806 -5.5090911171652888 -4.5909092643043978 -3.6727274114435073 -2.7545455585826168 -1.836363705721725 -0.91818185286083509 5.645484080218921e-14 0.91818185286094622 1.8363637057218378 2.7545455585827274 3.6727274114436188 4.5909092643045089 5.5090911171653838 6.4272729700262579 7.345454822887131 8.2636366757480051 9.1818185286088827 10.100000381469727"/>
+  </HexMesh>
+  <UnitCell/>
+  <GeometryFile filename="3d.slim" type="slim" scale_factor_to_meter="0.001" subdomain_id=""/>
+</MetaGeometryFile>
