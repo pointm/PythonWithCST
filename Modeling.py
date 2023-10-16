@@ -683,97 +683,97 @@ if __name__ == "__main__":
     mws = init.mws
     # CstSaveAsProject(mws, projectName)  # 在新建时候保存用
     SimulateFrequency = [8, 9]
-    # 使用模板来对项目进行初始化
-    history = COMWithHistory(mws)
-    init.UseTemplate(Template='WaveGuide And Cavity Filter',
-                     FrequencyRange=SimulateFrequency)
+    # # 使用模板来对项目进行初始化
+    # history = COMWithHistory(mws)
+    # init.UseTemplate(Template='WaveGuide And Cavity Filter',
+    #                  FrequencyRange=SimulateFrequency)
 
-    # 加载变量名
-    parametersfilename = 'ParameterList.txt'
-    parameterspath = os.path.join(path, parametersfilename)
-    originalparameters = open(parameterspath).readlines()  # 按行读取文件
+    # # 加载变量名
+    # parametersfilename = 'ParameterList.txt'
+    # parameterspath = os.path.join(path, parametersfilename)
+    # originalparameters = open(parameterspath).readlines()  # 按行读取文件
 
-    parameters = []
-    for item in originalparameters:
-        item = item.replace('\n', '')  # 去除换行符
-        item = re.sub("[= ]", '#', item)  # 将没用的符号置换成分隔符
-        item = item.split('#')  # 按照分隔符分开整行的指令
-        parameters.append(item)
+    # parameters = []
+    # for item in originalparameters:
+    #     item = item.replace('\n', '')  # 去除换行符
+    #     item = re.sub("[= ]", '#', item)  # 将没用的符号置换成分隔符
+    #     item = item.split('#')  # 按照分隔符分开整行的指令
+    #     parameters.append(item)
 
-    # 将处理好的变量存储到应用中
-    init.StoreParameters(parameters)
+    # # 将处理好的变量存储到应用中
+    # init.StoreParameters(parameters)
 
-    # 创建材料Sapphire蓝宝石
-    sapphire = Material(mws)
-    sapphire.materialinitial('Sapphire', 6.5, 1)
-    sapphire.materialcreate()
+    # # 创建材料Sapphire蓝宝石
+    # sapphire = Material(mws)
+    # sapphire.materialinitial('Sapphire', 6.5, 1)
+    # sapphire.materialcreate()
 
-    # 创建圆柱形窗片
-    cylinderwindow = Cylinder(mws)
-    cylinderwindow.init('Window', 'SapphireWindow', sapphire.MaterialName,
-                        'z', 0, 'wr', [0, 0, 0], ['-wt/2', 'wt/2'])
-    cylinderwindow.create('创建圆柱形蓝宝石窗片')
+    # # 创建圆柱形窗片
+    # cylinderwindow = Cylinder(mws)
+    # cylinderwindow.init('Window', 'SapphireWindow', sapphire.MaterialName,
+    #                     'z', 0, 'wr', [0, 0, 0], ['-wt/2', 'wt/2'])
+    # cylinderwindow.create('创建圆柱形蓝宝石窗片')
 
-    # 选取圆柱形窗片中点，将坐标系进行位移
-    pick = Pick(mws)
-    pick.PickCenterpointFromId(
-        '选取圆柱窗片中心点', cylinderwindow.Component, cylinderwindow.Name, 3)
-    wcs = WCS(mws)
-    wcs.AlignWCSWithSelectedPoint('将中心点移到圆柱窗片中心')
+    # # 选取圆柱形窗片中点，将坐标系进行位移
+    # pick = Pick(mws)
+    # pick.PickCenterpointFromId(
+    #     '选取圆柱窗片中心点', cylinderwindow.Component, cylinderwindow.Name, 3)
+    # wcs = WCS(mws)
+    # wcs.AlignWCSWithSelectedPoint('将中心点移到圆柱窗片中心')
 
-    # 进行脊波导的建模
-    waveguide = Brick(mws)
-    L = 10
-    waveguide.init('WaveGuide', 'DRW', 'Vacuum', [
-                   '-a/2', 'a/2'], ['-b/2', 'b/2'], [0, L])
-    waveguide.create('创建双脊波导本体')
+    # # 进行脊波导的建模
+    # waveguide = Brick(mws)
+    # L = 10
+    # waveguide.init('WaveGuide', 'DRW', 'Vacuum', [
+    #                '-a/2', 'a/2'], ['-b/2', 'b/2'], [0, L])
+    # waveguide.create('创建双脊波导本体')
 
-    cutoff = Brick(mws)
-    cutoff.init('WaveGuide', 'cutoff', 'Vacuum', [
-                '-d/2', 'd/2'], ['c/2', 'b/2'], [0, L])
-    cutoff.create('创建被切除部分')
+    # cutoff = Brick(mws)
+    # cutoff.init('WaveGuide', 'cutoff', 'Vacuum', [
+    #             '-d/2', 'd/2'], ['c/2', 'b/2'], [0, L])
+    # cutoff.create('创建被切除部分')
 
-    trans = Transform(mws)
-    trans.MirrorTransForm('镜像切除部分', cutoff.Component,
-                          cutoff.Name, [0, -1, 0], True)
+    # trans = Transform(mws)
+    # trans.MirrorTransForm('镜像切除部分', cutoff.Component,
+    #                       cutoff.Name, [0, -1, 0], True)
 
-    # 切除波导冗余部位
-    solid = Solid(mws)
-    solid.Subtract('开始减去部位1', waveguide.Component, waveguide.Name,
-                   cutoff.Component, cutoff.Name)
-    solid.Subtract('开始减去部位2', waveguide.Component, waveguide.Name,
-                   cutoff.Component, cutoff.Name+'_1')
-    # trans.MirrorTransForm('镜像脊波导', waveguide.Component,
+    # # 切除波导冗余部位
+    # solid = Solid(mws)
+    # solid.Subtract('开始减去部位1', waveguide.Component, waveguide.Name,
+    #                cutoff.Component, cutoff.Name)
+    # solid.Subtract('开始减去部位2', waveguide.Component, waveguide.Name,
+    #                cutoff.Component, cutoff.Name+'_1')
+    # # trans.MirrorTransForm('镜像脊波导', waveguide.Component,
+    # #                       waveguide.Name, [0, 0, -1], True)
+
+    # # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
+    # transportwaveguide = Brick(mws)
+    # transportwaveguide.init(waveguide.Component, 'TW', waveguide.Material, [
+    #                         '-a/2', 'a/2'], ['-b/2*0.75', 'b/2*0.75'], [0, 't'])
+    # transportwaveguide.create('添加过渡波导')
+    # solid.Add('将脊波导与过渡波导相加', waveguide.Component,
+    #           waveguide.Name, waveguide.Component, 'TW')
+
+    # # 创建全局坐标系，进行变换
+    # wcs.ActivateWCSGlobal('激活全局坐标系，准备变换')
+    # trans.MirrorTransForm('将创建完成的脊波导进行镜像', waveguide.Component,
     #                       waveguide.Name, [0, 0, -1], True)
+    # # 选取面，并且设置端口
+    # pick.PickFaceFromId('选取面1', waveguide.Component, waveguide.Name, 27)
+    # setport = Port(mws)
+    # setport.init('添加端口1', [['-a/2', 'a/2'], ['-b/2', 'b/2'],
+    #                        ['wt/2+10', 'wt/2+10']], [[0, 0], [0, 0], [0, 0]], PortNumber=1)
+    # setport.create()
 
-    # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
-    transportwaveguide = Brick(mws)
-    transportwaveguide.init(waveguide.Component, 'TW', waveguide.Material, [
-                            '-a/2', 'a/2'], ['-b/2*0.75', 'b/2*0.75'], [0, 't'])
-    transportwaveguide.create('添加过渡波导')
-    solid.Add('将脊波导与过渡波导相加', waveguide.Component,
-              waveguide.Name, waveguide.Component, 'TW')
+    # pick.PickFaceFromId('选取面2', waveguide.Component, waveguide.Name + '_1', 27)
+    # setport.init('添加端口2', [['-a/2', 'a/2'], ['-b/2', 'b/2'],
+    #                        ['-(wt/2+10)', '-(wt/2+10)']], [[0, 0], [0, 0], [0, 0]], PortNumber=2)
+    # setport.create()
 
-    # 创建全局坐标系，进行变换
-    wcs.ActivateWCSGlobal('激活全局坐标系，准备变换')
-    trans.MirrorTransForm('将创建完成的脊波导进行镜像', waveguide.Component,
-                          waveguide.Name, [0, 0, -1], True)
-    # 选取面，并且设置端口
-    pick.PickFaceFromId('选取面1', waveguide.Component, waveguide.Name, 27)
-    setport = Port(mws)
-    setport.init('添加端口1', [['-a/2', 'a/2'], ['-b/2', 'b/2'],
-                           ['wt/2+10', 'wt/2+10']], [[0, 0], [0, 0], [0, 0]], PortNumber=1)
-    setport.create()
-
-    pick.PickFaceFromId('选取面2', waveguide.Component, waveguide.Name + '_1', 27)
-    setport.init('添加端口2', [['-a/2', 'a/2'], ['-b/2', 'b/2'],
-                           ['-(wt/2+10)', '-(wt/2+10)']], [[0, 0], [0, 0], [0, 0]], PortNumber=2)
-    setport.create()
-
-    # 更新网格并且求解(我不会写网格更新（悲）)
-    mesh = Mesh(mws)
-    mesh.init(10, 5, 6, 5)
-    mesh.MeshUpdate('网格更新')
+    # # 更新网格并且求解(我不会写网格更新（悲）)
+    # mesh = Mesh(mws)
+    # mesh.init(10, 5, 6, 5)
+    # mesh.MeshUpdate('网格更新并且求解')
 
     # 求解后处理
 
