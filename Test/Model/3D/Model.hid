@@ -15,8 +15,6 @@ false
 [end]draw_port_wireframe
 [start]navigation_tree_text_files
 [end]navigation_tree_text_files
-[start]no_shape_defined
-[end]no_shape_defined
 [start]history_fast_undo
 [end]history_fast_undo
 [start]PortAndLumpedLabelState

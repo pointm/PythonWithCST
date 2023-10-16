@@ -5,15 +5,17 @@
 [Author]
 PointM2001
 [Mesh Cells]
-
+4,595
 [Mesh Type]
-Hexahedral
+Tetrahedral
 [Last Problem Type]
 High Frequency
 [Last Solver Type]
-HF Time Domain
+HF Frequency Domain
 [Last Solver Type Abb]
-t
+f
 [Results]
-Unavailable
+Frequency Domain: S-Parameter
+[Modeler Unique ID]
+5:test.cst?59b9166194f641fd368cf88822c18b7a?10074:numberofparameters=8:port=1>mode=1>zre=0>zim=0?port=2>mode=1>zre=0>zim=0:::t?wr?wt?s?d?c?b?a
 [Comment]

@@ -1,0 +1,83 @@
+// Number of object-id's
+3
+
+// List object-id's with types (0=solid, 1=background, 2=sheet, 3=wire, 4=portwire, 5=portelement, 6=coil, 7=lumpedelement, 8=lumpedwire, 9=current path, 10=voltage path):
+Window:SapphireWindow
+0
+WaveGuide:DRW_1
+0
+WaveGuide:DRW
+0
+
+// Number of 0D groups with object-id
+0
+
+// 0D Groupd-id, object-id
+
+// Number of 1D groups with object-id
+0
+
+// 1D Groupd-id, object-id
+
+// Number of 2D groups with object-id
+49
+
+// 2D Groupd-id, object-id from, object-id to
+3 -1 -1 -1 -1 -1 -1
+4 -1 -1 -1 -1 -1 -1
+5 -1 -1 -1 -1 -1 -1
+6 -1 -1 -1 -1 -1 -1
+7 3 -1 -1 -1 -1 -1
+8 3 -1 -1 -1 -1 -1
+9 3 -1 -1 -1 -1 -1
+10 3 -1 -1 -1 -1 -1
+11 3 -1 -1 -1 -1 -1
+12 3 -1 -1 -1 -1 -1
+13 3 -1 -1 -1 -1 -1
+14 3 -1 -1 -1 -1 -1
+15 3 -1 -1 -1 -1 -1
+16 3 -1 -1 -1 -1 -1
+17 3 -1 -1 -1 -1 -1
+18 3 -1 -1 -1 -1 -1
+19 3 -1 -1 -1 -1 -1
+20 3 -1 -1 -1 -1 -1
+21 3 -1 -1 -1 -1 -1
+22 3 -1 -1 -1 -1 -1
+23 3 -1 -1 -1 -1 -1
+24 3 -1 -1 -1 -1 -1
+25 3 -1 -1 -1 -1 -1
+26 2 -1 -1 -1 -1 -1
+27 2 -1 -1 -1 -1 -1
+28 2 -1 -1 -1 -1 -1
+29 2 -1 -1 -1 -1 -1
+30 2 -1 -1 -1 -1 -1
+31 2 -1 -1 -1 -1 -1
+32 2 -1 -1 -1 -1 -1
+33 2 -1 -1 -1 -1 -1
+34 2 -1 -1 -1 -1 -1
+35 2 -1 -1 -1 -1 -1
+36 2 -1 -1 -1 -1 -1
+37 2 -1 -1 -1 -1 -1
+38 2 -1 -1 -1 -1 -1
+39 2 -1 -1 -1 -1 -1
+40 2 -1 -1 -1 -1 -1
+41 2 -1 -1 -1 -1 -1
+42 2 -1 -1 -1 -1 -1
+43 2 -1 -1 -1 -1 -1
+44 2 -1 -1 -1 -1 -1
+45 1 -1 -1 -1 -1 -1
+46 3 1 -1 -1 -1 -1
+47 1 -1 -1 -1 -1 -1
+48 1 -1 -1 -1 -1 -1
+49 1 -1 -1 -1 -1 -1
+50 1 -1 -1 -1 -1 -1
+51 2 1 -1 -1 -1 -1
+
+// Number of 3D groups with object-id
+3
+
+// 3D Groupd-id, object-id
+1 1
+2 2
+3 3
+
