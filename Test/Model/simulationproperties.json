@@ -9,13 +9,13 @@
     },
     "run_options": {
         "optimizer_run": false,
-        "parameter_sweep_run": false,
+        "parameter_sweep_run": true,
         "single_solver_run": true
     },
     "solver_support": {
         "HF Frequency Domain": {
             "dc_multi_node": true,
-            "dc_para_opt_multi_node": false,
+            "dc_para_opt_multi_node": true,
             "gpu": false,
             "mpi": false,
             "mpi_gpu": false,

@@ -44,9 +44,9 @@
         },
         {
             "descr": "t",
-            "expr": "0.20",
+            "expr": "0.25",
             "name": "t",
-            "value": "0.20"
+            "value": "0.25"
         }
     ],
     "version": 1

@@ -1,253 +1,253 @@
-[10:48:43] -------- TetMesher Log --------
-[10:48:43] Build Number: 20220426; ID: 2022.4 Release from 2022-04-26 (change 967892); Date: 2022-04-26; ACIS version: 31.0.1, SPAresabs & SPAresnor: 1e-06, 1e-10; Problem class: High Frequency
-[10:48:43] - Reading information
-[10:48:43] - Building single body
-[10:48:43] Found 41 faces.
-[10:48:43] Choosing Advanced Boolean Loop...
-[10:48:43] Volume Attributes enabled
-[10:48:43] Attaching Volume Attributes
-[10:48:43] Sorted out 2 special bodies.
-[10:48:43] Processing 3 entities.
-[10:48:43] Queue Size: 1
-[10:48:43] Combining solid WaveGuide:DRW and solid WaveGuide:DRW_1 (Pair #1 out of 1)
-[10:48:43] Processing 2 entities.
-[10:48:43] Queue Size: 1
-[10:48:43] Adding Compound Body to solid Window:SapphireWindow (Pair #1 out of 1)
-[10:48:43] Exiting Boolean Unite Module.
-[10:48:43] Added Compound Body (ID: 100, 1, 199) to model
-[10:48:43] Added waveguide port 1 (ID: 207) to model
-[10:48:43] Added waveguide port 2 (ID: 217) to model
-[10:48:43] - Storing model cells
-[10:48:43] - OK
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 76
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 82
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 86
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 88
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 193
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 194
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 195
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 196
-[10:48:43] [CADSurf] Warning: missing mesh size for UID 0
-[10:48:43] [CADSurf] - Mesh sizes: global mesh size near to model = 3.3310272000000003e+00
+[15:41:44] -------- TetMesher Log --------
+[15:41:44] Build Number: 20220426; ID: 2022.4 Release from 2022-04-26 (change 967892); Date: 2022-04-26; ACIS version: 31.0.1, SPAresabs & SPAresnor: 1e-06, 1e-10; Problem class: High Frequency
+[15:41:44] - Reading information
+[15:41:44] - Building single body
+[15:41:44] Found 41 faces.
+[15:41:44] Choosing Advanced Boolean Loop...
+[15:41:44] Volume Attributes enabled
+[15:41:44] Attaching Volume Attributes
+[15:41:44] Sorted out 2 special bodies.
+[15:41:44] Processing 3 entities.
+[15:41:44] Queue Size: 1
+[15:41:44] Combining solid WaveGuide:DRW and solid WaveGuide:DRW_1 (Pair #1 out of 1)
+[15:41:44] Processing 2 entities.
+[15:41:45] Queue Size: 1
+[15:41:45] Adding Compound Body to solid Window:SapphireWindow (Pair #1 out of 1)
+[15:41:45] Exiting Boolean Unite Module.
+[15:41:45] Added Compound Body (ID: 100, 1, 199) to model
+[15:41:45] Added waveguide port 1 (ID: 207) to model
+[15:41:45] Added waveguide port 2 (ID: 217) to model
+[15:41:45] - Storing model cells
+[15:41:45] - OK
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 76
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 82
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 86
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 88
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 193
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 194
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 195
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 196
+[15:41:45] [CADSurf] Warning: missing mesh size for UID 0
+[15:41:45] [CADSurf] - Mesh sizes: global mesh size near to model = 3.3310272000000003e+00
               min requested = 1.3065363610083336e+00
               max requested = 3.3310272000000003e+00
-[10:48:43] [CADSurf] MeshGems Version: MeshGems-Core 2.10-1
-[10:48:43] [CADSurf] === Begin: PreCAD-related parameters ===
-[10:48:43] [CADSurf] == CADSurf Parameters == 
-[10:48:43] [CADSurf] meshgems_cadsurf_set_param(css, "use_precad",  "yes")
-[10:48:44] [CADSurf] Bounding box diagonal = 2.9946961448534307e+01
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "remove_nano_edges",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "discard_input_topology",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "process_3d_topology",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "discard_input_2d_topology",  "0")
-[10:48:44] [CADSurf] Default periodic tolerance (1e-4*diag) = 2.9946961448534307e-03
-[10:48:44] [CADSurf] Minimum periodic tolerance = 1.0000000000000001e-05
-[10:48:44] [CADSurf] Setting it to max( 1.0000000000000001e-05, 2.9946961448534307e-03 )
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "periodic_tolerance",  "0.0029946961448534307")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "remove_duplicate_cad_faces",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "remove_tiny_uv_edges",  "0")
-[10:48:44] [CADSurf] === End: PreCAD-related parameters ===
-[10:48:44] [CADSurf] ==
-[10:48:44] [CADSurf] == CADSurf Parameters == 
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "verbose",  "3")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "geometric_size_mode",  "local")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "physical_size_mode",  "local")
-[10:48:44] [CADSurf] 	 Max user size    = 3.3310272000000003e+00
-[10:48:44] [CADSurf] 	 Global size near = 3.3310272000000003e+00
-[10:48:44] [CADSurf] 	 Global size far  = 4.0400000000000000e+00
-[10:48:44] [CADSurf] 	 Upper size bound = 4.0400000000000000e+00
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "max_size",  "4.04")
-[10:48:44] [CADSurf] 	Calculating min. mesh size for CADSurf...
-[10:48:44] [CADSurf] 	Diagonal of model + background box: 2.9946961448534307e+01
-[10:48:44] [CADSurf] 	Min. mesh size by diagonal (1e-3 x diagonal): 2.9946961448534308e-02
-[10:48:44] [CADSurf] 	Diagonal of model: 2.9946961448534307e+01
-[10:48:44] [CADSurf] 	Min. mesh size of model: 1.3065363610083336e+00
-[10:48:44] [CADSurf] 	Max. cell defined by user (near to model): 3.3310272000000003e+00
-[10:48:44] [CADSurf] 	Min. cell defined by user: 0.0000000000000000e+00
-[10:48:44] [CADSurf] 	Min. cell used for calculation: 3.3310272000000002e-02
-[10:48:44] [CADSurf] Geometric refinement uses "min_size" setting.
-[10:48:44] [CADSurf] CADSurf "min_size" is set to min. mesh size by BG diagonal: 2.9946961448534308e-02
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "min_size",  "0.029946961448534308")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "max_number_of_points_per_patch",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "element_generation",  "local")
-[10:48:44] [CADSurf] Setting Triangle as default element type
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "gradation",  "1.5")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "volume_gradation",  "2")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "patch_independent",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "remove_tiny_edges",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "optimise_tiny_edges",  "0")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "tiny_edge_respect_geometry",  "1")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "CheckWellDefined",  "8")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "anisotropic",  "1")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "anisotropic_ratio",  "5")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "correct_surface_intersections",  "1")
-[10:48:44] [CADSurf] meshgems_cadsurf_set_param(css, "intersection_processing_max_cost",  "15")
-[10:48:44] [CADSurf] ==
-[10:48:44] [CADSurf] Status: OK
-[10:48:44] [CADSurf] Number of intersecting edges: 0, total edge count: 277
-[10:48:44] [CADSurf] Number of intersecting faces: 0
-[10:48:44] [CADSurf] - Mesh stats: N=458, E=277, T=973, Q=0
-[10:48:44] [CADSurf] Testing watertightness
-[10:48:44] [CADSurf] - OK
-[10:48:44] Creating volume mesh from surface mesh new workflow - begin
-[10:48:44] [SrfToVol] Volume meshing: 4 threads will be allocated
-[10:48:44] [SrfToVol] Surface to volume mesh: verifying input data
-[10:48:44] [SrfToVol] 
-[10:48:44] [SrfToVol] Generate volume mesh for 3 subdomains using 4 threads 
+[15:41:45] [CADSurf] MeshGems Version: MeshGems-Core 2.10-1
+[15:41:45] [CADSurf] === Begin: PreCAD-related parameters ===
+[15:41:45] [CADSurf] == CADSurf Parameters == 
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "use_precad",  "yes")
+[15:41:45] [CADSurf] Bounding box diagonal = 2.9946961448534307e+01
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "remove_nano_edges",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "discard_input_topology",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "process_3d_topology",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "discard_input_2d_topology",  "0")
+[15:41:45] [CADSurf] Default periodic tolerance (1e-4*diag) = 2.9946961448534307e-03
+[15:41:45] [CADSurf] Minimum periodic tolerance = 1.0000000000000001e-05
+[15:41:45] [CADSurf] Setting it to max( 1.0000000000000001e-05, 2.9946961448534307e-03 )
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "periodic_tolerance",  "0.0029946961448534307")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "remove_duplicate_cad_faces",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "remove_tiny_uv_edges",  "0")
+[15:41:45] [CADSurf] === End: PreCAD-related parameters ===
+[15:41:45] [CADSurf] ==
+[15:41:45] [CADSurf] == CADSurf Parameters == 
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "verbose",  "3")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "geometric_size_mode",  "local")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "physical_size_mode",  "local")
+[15:41:45] [CADSurf] 	 Max user size    = 3.3310272000000003e+00
+[15:41:45] [CADSurf] 	 Global size near = 3.3310272000000003e+00
+[15:41:45] [CADSurf] 	 Global size far  = 4.0400000000000000e+00
+[15:41:45] [CADSurf] 	 Upper size bound = 4.0400000000000000e+00
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "max_size",  "4.04")
+[15:41:45] [CADSurf] 	Calculating min. mesh size for CADSurf...
+[15:41:45] [CADSurf] 	Diagonal of model + background box: 2.9946961448534307e+01
+[15:41:45] [CADSurf] 	Min. mesh size by diagonal (1e-3 x diagonal): 2.9946961448534308e-02
+[15:41:45] [CADSurf] 	Diagonal of model: 2.9946961448534307e+01
+[15:41:45] [CADSurf] 	Min. mesh size of model: 1.3065363610083336e+00
+[15:41:45] [CADSurf] 	Max. cell defined by user (near to model): 3.3310272000000003e+00
+[15:41:45] [CADSurf] 	Min. cell defined by user: 0.0000000000000000e+00
+[15:41:45] [CADSurf] 	Min. cell used for calculation: 3.3310272000000002e-02
+[15:41:45] [CADSurf] Geometric refinement uses "min_size" setting.
+[15:41:45] [CADSurf] CADSurf "min_size" is set to min. mesh size by BG diagonal: 2.9946961448534308e-02
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "min_size",  "0.029946961448534308")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "max_number_of_points_per_patch",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "element_generation",  "local")
+[15:41:45] [CADSurf] Setting Triangle as default element type
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "gradation",  "1.5")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "volume_gradation",  "2")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "patch_independent",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "remove_tiny_edges",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "optimise_tiny_edges",  "0")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "tiny_edge_respect_geometry",  "1")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "CheckWellDefined",  "8")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "anisotropic",  "1")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "anisotropic_ratio",  "5")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "correct_surface_intersections",  "1")
+[15:41:45] [CADSurf] meshgems_cadsurf_set_param(css, "intersection_processing_max_cost",  "15")
+[15:41:45] [CADSurf] ==
+[15:41:45] [CADSurf] Status: OK
+[15:41:45] [CADSurf] Number of intersecting edges: 0, total edge count: 269
+[15:41:45] [CADSurf] Number of intersecting faces: 0
+[15:41:45] [CADSurf] - Mesh stats: N=450, E=269, T=957, Q=0
+[15:41:45] [CADSurf] Testing watertightness
+[15:41:45] [CADSurf] - OK
+[15:41:45] Creating volume mesh from surface mesh new workflow - begin
+[15:41:45] [SrfToVol] Volume meshing: 4 threads will be allocated
+[15:41:45] [SrfToVol] Surface to volume mesh: verifying input data
+[15:41:45] [SrfToVol] 
+[15:41:45] [SrfToVol] Generate volume mesh for 3 subdomains using 4 threads 
  
-[10:48:44] [SrfToVol] Setting mesher options for subdomain with id = 242
+[15:41:45] [SrfToVol] Setting mesher options for subdomain with id = 242
 gradation = 1.500000
 optimisation_level = standard
 min_size = -1
 max_size = 1.306536
 maxpropa = 2
 
-[10:48:44] [SrfToVol] Setting mesher options for subdomain with id = 243
+[15:41:45] [SrfToVol] Setting mesher options for subdomain with id = 243
 gradation = 1.500000
 optimisation_level = standard
 min_size = -1
 max_size = 3.331027
 maxpropa = 2
 
-[10:48:44] [SrfToVol] Setting mesher options for subdomain with id = 244
+[15:41:45] [SrfToVol] Setting mesher options for subdomain with id = 244
 gradation = 1.500000
 optimisation_level = standard
 min_size = -1
 max_size = 3.331027
 maxpropa = 2
 
-[10:48:44] [SrfToVol] Start meshing subdomain with id = 242  numTriangles = 406 allUids = 17 18 19 26 27 28 31 34 35 38 39 44 45 46 47 50 51 58 59 61 62 66 67 72 73 74 91 92 101 106 119 120 123 131 135 140 144 154 156 170 171 179 183 188 189 190 191 192 235 236 237 238 239 240 241 
-[10:48:44] [SrfToVol] Start meshing subdomain with id = 243  numTriangles = 402 allUids = 1 2 3 4 5 6 7 8 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 140 141 142 143 144 145 146 147 151 154 156 158 162 163 164 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 185 186 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 241 
-[10:48:44] [SrfToVol] Start meshing subdomain with id = 244  numTriangles = 410 allUids = 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 91 92 93 94 95 97 101 104 106 110 111 112 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 137 138 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 236 
-[10:48:44] [SrfToVol] Done meshing subdomain with id = 243  numTets = 835
-[10:48:44] [SrfToVol] Done meshing subdomain with id = 244  numTets = 841
-[10:48:44] [SrfToVol] Done meshing subdomain with id = 242  numTets = 556
-[10:48:44] [SrfToVol] Assembling volume mesh
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 10.00%
+[15:41:45] [SrfToVol] Start meshing subdomain with id = 242  numTriangles = 406 allUids = 17 18 19 26 27 28 31 34 35 38 39 44 45 46 47 50 51 58 59 61 62 66 67 72 73 74 91 92 101 106 119 120 123 131 135 140 144 154 156 170 171 179 183 188 189 190 191 192 235 236 237 238 239 240 241 
+[15:41:45] [SrfToVol] Start meshing subdomain with id = 243  numTriangles = 394 allUids = 1 2 3 4 5 6 7 8 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 140 141 142 143 144 145 146 147 151 154 156 158 162 163 164 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 185 186 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 241 
+[15:41:46] [SrfToVol] Start meshing subdomain with id = 244  numTriangles = 402 allUids = 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 91 92 93 94 95 97 101 104 106 110 111 112 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 137 138 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 236 
+[15:41:46] [SrfToVol] Done meshing subdomain with id = 243  numTets = 783
+[15:41:46] [SrfToVol] Done meshing subdomain with id = 244  numTets = 779
+[15:41:46] [SrfToVol] Done meshing subdomain with id = 242  numTets = 556
+[15:41:46] [SrfToVol] Assembling volume mesh
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 10.00%
  Int Data: 1 Real Data: 10
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 26.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 26.00%
  Int Data: 1 Real Data: 26.3959
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 27.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 27.00%
  Int Data: 1 Real Data: 27.0051
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 28.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 28.00%
  Int Data: 1 Real Data: 28.0203
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 29.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 29.00%
  Int Data: 1 Real Data: 29.0525
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 30.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 30.00%
  Int Data: 1 Real Data: 30
-[10:48:44] [SrfToVol] Msg:  %% WARNING max_size    1.307    is lower than the greatest edge    1.720
+[15:41:46] [SrfToVol] Msg:  %% WARNING max_size    1.307    is lower than the greatest edge    1.720
  Int Data:  Real Data: 1.306541.72032
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 40.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 40.00%
  Int Data: 1 Real Data: 40
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 50.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 50.00%
  Int Data: 1 Real Data: 50
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 52.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 52.00%
  Int Data: 1 Real Data: 52
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 53.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 53.00%
  Int Data: 1 Real Data: 53
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 56.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 56.00%
  Int Data: 1 Real Data: 56
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 59.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 59.00%
  Int Data: 1 Real Data: 59
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 60.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 60.00%
  Int Data: 1 Real Data: 60
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 90.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 90.00%
  Int Data: 1 Real Data: 90
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #1 : 100.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #1 : 100.00%
  Int Data: 1 Real Data: 100
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 10.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 10.00%
  Int Data: 2 Real Data: 10
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 26.00%
- Int Data: 2 Real Data: 26.4177
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 27.00%
- Int Data: 2 Real Data: 27.0289
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 28.00%
- Int Data: 2 Real Data: 28.0475
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 29.00%
- Int Data: 2 Real Data: 29.0323
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 30.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 26.00%
+ Int Data: 2 Real Data: 26.4615
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 27.00%
+ Int Data: 2 Real Data: 27.0085
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 28.00%
+ Int Data: 2 Real Data: 28.0342
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 29.00%
+ Int Data: 2 Real Data: 29.0256
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 30.00%
  Int Data: 2 Real Data: 30
-[10:48:44] [SrfToVol] Msg:  %% WARNING max_size    3.331    is lower than the greatest edge    5.087
+[15:41:46] [SrfToVol] Msg:  %% WARNING max_size    3.331    is lower than the greatest edge    5.087
  Int Data:  Real Data: 3.331035.08694
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 39.00%
- Int Data: 2 Real Data: 39.8424
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 40.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 39.00%
+ Int Data: 2 Real Data: 39.8392
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 40.00%
  Int Data: 2 Real Data: 40
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 44.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 44.00%
  Int Data: 2 Real Data: 44
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 50.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 50.00%
  Int Data: 2 Real Data: 50
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 52.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 52.00%
  Int Data: 2 Real Data: 52
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 53.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 53.00%
  Int Data: 2 Real Data: 53
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 56.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 56.00%
  Int Data: 2 Real Data: 56
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 59.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 59.00%
  Int Data: 2 Real Data: 59
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 60.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 60.00%
  Int Data: 2 Real Data: 60
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 90.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 90.00%
  Int Data: 2 Real Data: 90
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #2 : 100.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #2 : 100.00%
  Int Data: 2 Real Data: 100
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 10.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 10.00%
  Int Data: 3 Real Data: 10
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 26.00%
- Int Data: 3 Real Data: 26.3744
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 27.00%
- Int Data: 3 Real Data: 27.0489
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 28.00%
- Int Data: 3 Real Data: 28.0438
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 29.00%
- Int Data: 3 Real Data: 29.0388
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 30.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 26.00%
+ Int Data: 3 Real Data: 26.4177
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 27.00%
+ Int Data: 3 Real Data: 27.0289
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 28.00%
+ Int Data: 3 Real Data: 28.0136
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 29.00%
+ Int Data: 3 Real Data: 29.0153
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 30.00%
  Int Data: 3 Real Data: 30
-[10:48:44] [SrfToVol] Msg:  %% WARNING max_size    3.331    is lower than the greatest edge    4.364
- Int Data:  Real Data: 3.331034.36443
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 39.00%
- Int Data: 3 Real Data: 39.8744
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 40.00%
+[15:41:46] [SrfToVol] Msg:  %% WARNING max_size    3.331    is lower than the greatest edge    4.631
+ Int Data:  Real Data: 3.331034.63141
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 39.00%
+ Int Data: 3 Real Data: 39.8128
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 40.00%
  Int Data: 3 Real Data: 40
-[10:48:44] [SrfToVol] Msg: Progress MG-Tetra session #3 : 44.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 44.00%
  Int Data: 3 Real Data: 44
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 50.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 50.00%
  Int Data: 3 Real Data: 50
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 52.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 52.00%
  Int Data: 3 Real Data: 52
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 53.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 53.00%
  Int Data: 3 Real Data: 53
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 56.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 56.00%
  Int Data: 3 Real Data: 56
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 59.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 59.00%
  Int Data: 3 Real Data: 59
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 60.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 60.00%
  Int Data: 3 Real Data: 60
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 90.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 90.00%
  Int Data: 3 Real Data: 90
-[10:48:45] [SrfToVol] Msg: Progress MG-Tetra session #3 : 100.00%
+[15:41:46] [SrfToVol] Msg: Progress MG-Tetra session #3 : 100.00%
  Int Data: 3 Real Data: 100
-[10:48:45] [SrfToVol] Volume mesh generated - Status = ok
-[10:48:45] [SrfToVol] - Volume mesh stats: Nb nodes = 567, Nb edges = 277, Nb surface elements = 973, Nb tets = 2232
-[10:48:45] Creating mesh topology.
-[10:48:45] Using mesh topology.
-[10:48:45] Creating volume mesh from surface mesh - done
-[10:48:45] Using generalized mesh output routines.
-[10:48:45] Writing Bc file
-[10:48:45] Writing gex file for volume mesh
-[10:48:45] Running model geometry simplification... 
-[10:48:45] Model geometry simplification: 0 seconds
-[10:48:45] Writing topot.tet...
-[10:48:45] Done (topot.tet)
-[10:48:45] Writing moegeom.tet ...
-[10:48:45] Done (moegeom.tet) 
-[10:48:45] Mesh curving:
-[10:48:45]     available cores:   4
-[10:48:45]     number of threads: 4
-[10:48:45] Curving elements
-[10:48:45]  Curve elements, order = 3
+[15:41:46] [SrfToVol] Volume mesh generated - Status = ok
+[15:41:46] [SrfToVol] - Volume mesh stats: Nb nodes = 548, Nb edges = 269, Nb surface elements = 957, Nb tets = 2118
+[15:41:46] Creating mesh topology.
+[15:41:46] Using mesh topology.
+[15:41:46] Creating volume mesh from surface mesh - done
+[15:41:46] Using generalized mesh output routines.
+[15:41:46] Writing Bc file
+[15:41:46] Writing gex file for volume mesh
+[15:41:46] Running model geometry simplification... 
+[15:41:46] Model geometry simplification: 0 seconds
+[15:41:46] Writing topot.tet...
+[15:41:46] Done (topot.tet)
+[15:41:46] Writing moegeom.tet ...
+[15:41:46] Done (moegeom.tet) 
+[15:41:46] Mesh curving:
+[15:41:46]     available cores:   4
+[15:41:46]     number of threads: 4
+[15:41:46] Curving elements
+[15:41:46]  Curve elements, order = 3
 
-[10:48:45] 
+[15:41:46] 
 #### Feedback Report Begins ####
 ----------
 Display Group: UNKNOWN [NON-GRAPHICAL] 
@@ -933,7 +933,7 @@ Problem: Issue 1
 Item: Item 41
 Item Label: UNKNOWN
 Descriptor Label: UNKNOWN
-Description: 1005343  %% WARNING max_size    3.331    is lower than the greatest edge    4.364
+Description: 1005343  %% WARNING max_size    3.331    is lower than the greatest edge    4.631
 
 Cure: 
 Integer Data: 
@@ -1132,4 +1132,4 @@ Incoherent data, skipping the creation of graphical Items.
 
 #### Feedback Report Ends ####
 
-[10:48:45] Done
+[15:41:46] Done

@@ -5,7 +5,7 @@
 [Author]
 PointM2001
 [Mesh Cells]
-4,595
+4,489
 [Mesh Type]
 Tetrahedral
 [Last Problem Type]
@@ -17,5 +17,5 @@ f
 [Results]
 Frequency Domain: S-Parameter
 [Modeler Unique ID]
-5:test.cst?2df24dd2ce4fe41ae2cb3b2c9272e32f?13501:numberofparameters=8:port=1>mode=1>zre=0>zim=0?port=2>mode=1>zre=0>zim=0:::t?wr?wt?s?d?c?b?a
+5:test.cst?2df24dd2ce4fe41ae2cb3b2c9272e32f?13501:numberofparameters=8:port=1>mode=1>zre=0>zim=0?port=2>mode=1>zre=0>zim=0:::a?b?c?d?s?t?wr?wt
 [Comment]

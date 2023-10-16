@@ -42,7 +42,7 @@
       {
          "name": "t",
          "type": "float",
-         "value": 0.2
+         "value": 0.25
       }
    ],
    "outputVariables": []
