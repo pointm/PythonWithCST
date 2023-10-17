@@ -4,11 +4,11 @@ path = os.path.dirname(os.path.abspath(__file__))  # 获取当前py文件所在�
 filename = 'Test.cst'  # 保存的文件的名称，要加后缀cst
 projectName = os.path.join(path, filename)
 
-init = Initial(lable='Open', ProjectName=projectName)
-# init = Initial()
+# init = Initial(lable='Open', ProjectName=projectName)
+init = Initial()
 mws = init.mws
 cst = init.cst
-# CstSaveAsProject(mws, projectName)  # 在新建时候保存用
+CstSaveAsProject(mws, projectName)  # 在新建时候保存用
 SimulateFrequency = [8, 9]
 # 使用模板来对项目进行初始化
 history = StructureMacros(mws)

@@ -18,15 +18,15 @@ Their code is very enlightening, but CSDN tutorials can only run in older versio
 
 Please make sure you have CST and Python installed correctly before you run it~!
 
-现在集成的代码与`VBA`语句比较少，直接运行`ExampleOfWaveGuide.py`模块即可预览里面的一个样例，具体的作用是会在文件当前的路径生成一个微波窗口并且将里面的S参数绘制出图形。如果想要使用里面的类或者方法的话，直接将文件与`Modeling.py`放在同一个子文件夹里。`import Modeling`就可以了。
+现在集成的代码与`VBA`语句比较少，直接运行`ExampleOfWaveGuide.py`模块即可预览里面的一个样例，具体的作用是会在文件当前的路径生成一个微波窗并且将里面的S参数绘制出图形。如果想要使用里面的类或者方法的话，直接将文件与`Modeling.py`放在同一个子文件夹里，然后`from Modeling import *`就可以了。
 
-Now that the integrated code has fewer `VBA` statements, you can run the `ExampleOfWaveGuide.py` module directly to preview one of its samples, which will generate a microwave window at the current path of the file and draw a graph with the S parameter inside. If you want to use any of the classes or methods in the module, place the file in the same subfolder as `Modeling.py`. Just `import Modeling`.
+Now that the integrated code has fewer `VBA` statements, you can run the `ExampleOfWaveGuide.py` module directly to preview one of its samples, which will generate a microwave window at the current path of the file and draw a graph with the S parameter inside. If you want to use any of the classes or methods in the module, place the file in the same subfolder as `Modeling.py`, and then `from Modeling import *`.
 
-如何创建一个cst的文件和如何导入参数的话，直接参考`Modeling.py`里面的`main`文件就行啦。当然后续的话我也会考虑把这些比较重要的功能的使用方式添加到`README.md`里面的。
+如何创建一个cst的文件和如何导入参数的话，直接参考`ExampleOfWaveGuide.py`文件就行啦。当然后续的话我也会考虑把这些比较重要的功能的使用方式添加到`README.md`里面的。
 
 For how to create a cst file and how to import parameters, just refer to the `main` file in `Modeling.py`. Of course, I will consider adding the usage of these important functions to `README.md`.
 
-如果有什么想要加的内容的话，欢迎提意见或者创建新的仓库分支
+如果有什么想要加的内容的话，欢迎提意见或者创建新的仓库分支！
 
 If there's anything you'd like to add, feel free to comment or create a new branch of the repository!
 
