@@ -1,5 +1,30 @@
 from Modeling import *
 
+
+def DoubleRidgeWaveGuide(mws, DRWname, Component, Name, length, a, b, d, s, Matetial='Vacuum'):
+    # 进行脊波导的建模
+    waveguide = Brick(mws)
+    L = 10
+    waveguide.init(Component, Name, Matetial, [
+        '-'+a+'/2', a+'/2'], ['-'+b+'/2', b+'/2'], [length[0], length[1]]).create('创建双脊波导'+DRWname+'本体')
+
+    cutoff = Brick(mws)
+    cutoff.init(Component, DRWname+'cutoff', Matetial, [
+                '-'+s+'/2', s+'/2'], [d+'/2', b+'/2'], [length[0], length[1]]).create('创建'+DRWname+'被切除部分')
+
+    transform = Transform(mws)
+    transform.MirrorTransForm('镜像'+DRWname+'切除部分', cutoff.Component,
+                              cutoff.Name, [0, -1, 0], True)
+
+    # 切除波导冗余部位
+    solid = Solid(mws)
+    solid.Subtract('开始减去'+DRWname+'切除部分部位1', waveguide.Component, waveguide.Name,
+                   cutoff.Component, cutoff.Name)
+    solid.Subtract('开始减去'+DRWname+'切除部分部位2', waveguide.Component, waveguide.Name,
+                   cutoff.Component, cutoff.Name+'_1')
+    return waveguide
+
+
 path = os.path.dirname(os.path.abspath(__file__))  # 获取当前py文件所在文件夹路径，方便保存
 filename = 'Test.cst'  # 保存的文件的名称，要加后缀cst
 projectName = os.path.join(path, filename)
@@ -38,26 +63,11 @@ pick.PickCenterpointFromId(
 wcs = WCS(mws)
 wcs.AlignWCSWithSelectedPoint('将中心点移到圆柱窗片中心')
 
-# 进行脊波导的建模
-waveguide = Brick(mws)
-L = 10
-waveguide.init('WaveGuide', 'DRW', 'Vacuum', [
-    '-a/2', 'a/2'], ['-b/2', 'b/2'], [0, L]).create('创建双脊波导本体')
 
-cutoff = Brick(mws)
-cutoff.init('WaveGuide', 'cutoff', 'Vacuum', [
-            '-d/2', 'd/2'], ['c/2', 'b/2'], [0, L]).create('创建被切除部分')
-
-trans = Transform(mws)
-trans.MirrorTransForm('镜像切除部分', cutoff.Component,
-                      cutoff.Name, [0, -1, 0], True)
-
-# 切除波导冗余部位
 solid = Solid(mws)
-solid.Subtract('开始减去部位1', waveguide.Component, waveguide.Name,
-               cutoff.Component, cutoff.Name)
-solid.Subtract('开始减去部位2', waveguide.Component, waveguide.Name,
-               cutoff.Component, cutoff.Name+'_1')
+
+waveguide = DoubleRidgeWaveGuide(mws, '脊波导1', 'WaveGuide', 'DRW1', [
+                                 0, 10], 'a', 'b', 'd', 's')
 
 # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
 transportwaveguide = Brick(mws)
@@ -66,6 +76,7 @@ transportwaveguide.init(waveguide.Component, 'TW', waveguide.Material, [
 solid.Add('将脊波导与过渡波导相加', waveguide.Component,
           waveguide.Name, waveguide.Component, 'TW')
 
+trans = Transform(mws)
 # 创建全局坐标系，进行变换
 wcs.ActivateWCSGlobal('激活全局坐标系，准备变换')
 trans.MirrorTransForm('将创建完成的脊波导进行镜像', waveguide.Component,
