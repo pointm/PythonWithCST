@@ -18,29 +18,18 @@ init.UseTemplate(Template='WaveGuide And Cavity Filter',
 # 加载变量名
 parametersfilename = 'ParameterList.txt'
 parameterspath = os.path.join(path, parametersfilename)
-# 按行读取文件，有可能会出现编码错误，出现的话记得在open的后面加上编码(encode='utf-8')当然没出现的话就不管了
-originalparameters = open(parameterspath).readlines()
-
-parameters = []
-for item in originalparameters:
-    item = item.replace('\n', '')  # 去除换行符
-    item = re.sub("[= ]", '#', item)  # 将没用的符号批量置换成分隔符
-    item = item.split('#')  # 按照分隔符分开整行
-    parameters.append(item)
 
 # 将处理好的变量存储到应用中
-init.StoreParameters(parameters)
+init.StoreParameters(parameterspath)
 
 # 创建材料Sapphire蓝宝石
 sapphire = Material(mws)
-sapphire.materialinitial('Sapphire', 6.5, 1)
-sapphire.materialcreate()
+sapphire.materialinitial('Sapphire', 6.5, 1).materialcreate()
 
 # 创建圆柱形窗片
 cylinderwindow = Cylinder(mws)
 cylinderwindow.init('Window', 'SapphireWindow', sapphire.MaterialName,
-                    'z', 0, 'wr', [0, 0, 0], ['-wt/2', 'wt/2'])
-cylinderwindow.create('创建圆柱形蓝宝石窗片')
+                    'z', 0, 'wr', [0, 0, 0], ['-wt/2', 'wt/2']).create('创建圆柱形蓝宝石窗片')
 
 # 选取圆柱形窗片中点，将坐标系进行位移
 pick = Pick(mws)
@@ -53,13 +42,11 @@ wcs.AlignWCSWithSelectedPoint('将中心点移到圆柱窗片中心')
 waveguide = Brick(mws)
 L = 10
 waveguide.init('WaveGuide', 'DRW', 'Vacuum', [
-    '-a/2', 'a/2'], ['-b/2', 'b/2'], [0, L])
-waveguide.create('创建双脊波导本体')
+    '-a/2', 'a/2'], ['-b/2', 'b/2'], [0, L]).create('创建双脊波导本体')
 
 cutoff = Brick(mws)
 cutoff.init('WaveGuide', 'cutoff', 'Vacuum', [
-            '-d/2', 'd/2'], ['c/2', 'b/2'], [0, L])
-cutoff.create('创建被切除部分')
+            '-d/2', 'd/2'], ['c/2', 'b/2'], [0, L]).create('创建被切除部分')
 
 trans = Transform(mws)
 trans.MirrorTransForm('镜像切除部分', cutoff.Component,
@@ -71,14 +58,11 @@ solid.Subtract('开始减去部位1', waveguide.Component, waveguide.Name,
                cutoff.Component, cutoff.Name)
 solid.Subtract('开始减去部位2', waveguide.Component, waveguide.Name,
                cutoff.Component, cutoff.Name+'_1')
-# trans.MirrorTransForm('镜像脊波导', waveguide.Component,
-#                       waveguide.Name, [0, 0, -1], True)
 
 # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
 transportwaveguide = Brick(mws)
 transportwaveguide.init(waveguide.Component, 'TW', waveguide.Material, [
-                        '-a/2', 'a/2'], ['-b/2*0.75', 'b/2*0.75'], [0, 't'])
-transportwaveguide.create('添加过渡波导')
+                        '-a/2', 'a/2'], ['-b/2*0.75', 'b/2*0.75'], [0, 't']).create('添加过渡波导')
 solid.Add('将脊波导与过渡波导相加', waveguide.Component,
           waveguide.Name, waveguide.Component, 'TW')
 

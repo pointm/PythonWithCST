@@ -118,7 +118,22 @@ class Initial(StructureMacros):
         self.AddToHistoryWithList(
             Tag='Boundary Initial', Command=sCommand)
 
-    def StoreParameters(self, parameters):
+    def StoreParameters(self, parameterspath, encodewith='utf-8'):
+        # 首先将指定路径的文件一行一行的读取出来
+        # 文件可以是CST直接导出的变量文件
+        originalparameters = open(
+            parameterspath, encoding=encodewith).readlines()
+
+        # 将处理好的参数储存到parameters列表里面，列表的每一行都是一个参数
+        # 并且将参数与其值和备注直接分开，接受后续的处理
+        parameters = []
+        for item in originalparameters:
+            item = item.replace('\n', '')  # 去除换行符
+            item = re.sub("[= ]", '#', item)  # 将没用的符号批量置换成分隔符
+            item = item.split('#')  # 按照分隔符分开整行
+            parameters.append(item)
+
+        # 将处理好的变量列表存储到应用中
         sCommand = ''
         for parameter in parameters:
             if parameter == ['']:
@@ -381,6 +396,7 @@ class Brick(GeneralModel):
      .Create
 End With'''
         self.AddToHistoryWithCommand(Tag, Command)
+        return self
 
 
 class Cylinder(GeneralModel):
@@ -443,6 +459,7 @@ End With'''
     .Create
 End With'''
         self.AddToHistoryWithCommand(Tag=Tag, Command=sCommand)
+        return self
 
 
 class Pick(StructureMacros):
