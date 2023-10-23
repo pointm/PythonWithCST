@@ -475,6 +475,10 @@ class Pick(StructureMacros):
         sCommand = f'Pick.PickFaceFromId "{Component}:{Name}", "{Id}"'
         self.AddToHistoryWithCommand(Tag, sCommand)
 
+    def PickEdgeFromId(self, Tag, Component, Name, edge_id, vertex_id):
+        sCommand = f'Pick.PickEdgeFromId "{Component}:{Name}", "{edge_id}", "{vertex_id}"'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
 
 class WCS(StructureMacros):
     def __init__(self, handle) -> None:
@@ -527,6 +531,10 @@ class Solid(StructureMacros):
         sCommand = f'Solid.Add "{component1}:{name1}", "{component2}:{name2}"'
         self.AddToHistoryWithCommand(Tag, sCommand)
 
+    def BlendEdge(self, Tag, radius):
+        sCommand = f'Solid.BlendEdge "{radius}"'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
 
 class Port(StructureMacros):
     PortNumber = 1
@@ -546,14 +554,13 @@ class Port(StructureMacros):
         self.mws = handle
     pass
 
-    def init(self,  Range,  **kwargs):
+    def init(self,  Range, PortNumber, **kwargs):
         self.Xrange = Range[0]
         self.Yrange = Range[1]
         self.Zrange = Range[2]
+        self.PortNumber = PortNumber
         for key, value in kwargs.items():
             match key:
-                case 'PortNumber':
-                    self.PortNumber = value
                 case 'NumberOfModes':
                     self.NumberOfModes = value
                 case 'Coordinates':
@@ -568,6 +575,7 @@ class Port(StructureMacros):
                     self.XrangeAdd = [0]
                     self.YrangeAdd = [1]
                     self.ZrangeAdd = [2]
+        return self
 
     def create(self, Tag):
         self.Tag = Tag
@@ -599,6 +607,7 @@ class Port(StructureMacros):
     End With'''
         self.AddToHistoryWithCommand(self.Tag +
                                      'Add Port' + str(self.PortNumber), sCommand)
+        return self
 
 
 class Mesh(StructureMacros):
