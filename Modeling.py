@@ -87,7 +87,7 @@ class Initial(StructureMacros):
         self.mws = self.cst.Active3D()
         return self.mws
 
-    def BackGroundInitial(self, mws):
+    def BackGroundInitial(self):
         sCommand = ['With Background',
                     '.ResetBackground',
                     '.Type "PEC"',
@@ -95,7 +95,7 @@ class Initial(StructureMacros):
         self.AddToHistoryWithList(
             Tag='Background Initial', Command=sCommand)
 
-    def UnitInitial(self, mws):
+    def UnitInitial(self):
         sCommand = ['With Units',
                     '.Geometry "mm"',
                     '.Frequency "ghz"',
@@ -103,7 +103,7 @@ class Initial(StructureMacros):
                     'End With']
         self.AddToHistoryWithList(Tag='Unit Initial', Command=sCommand)
 
-    def BoundaryInitial(self, mws):
+    def BoundaryInitial(self):
         sCommand = ['With Boundary',
                     '.Xmin "electric"',
                     '.Xmax "electric"',
