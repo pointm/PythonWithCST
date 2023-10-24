@@ -64,9 +64,9 @@ class Initial(StructureMacros):
         self.cst = self.OpenCST()
         if lable == 'New':
             handle = self.NewProject()
-            self.BackGroundInitial(mws=handle)
-            self.UnitInitial(mws=handle)
-            self.BoundaryInitial(mws=handle)
+            self.BackGroundInitial()
+            self.UnitInitial()
+            self.BoundaryInitial()
         elif lable == 'Open':
             handle = self.OpenProject(ProjectName=ProjectName)
 

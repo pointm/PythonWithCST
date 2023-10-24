@@ -1,15 +1,15 @@
-24/Oct/2023 11:24:54  In order to get an optimal performance, hyperthreading is ignored for parallel
+24/Oct/2023 13:30:10  In order to get an optimal performance, hyperthreading is ignored for parallel
                       computations.
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:57  Units settings: 
+24/Oct/2023 13:30:13  Units settings: 
                       
                         Dimensions: mm
                         Frequency:  GHz
                         Time:       ns
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:57  Boundary conditions: 
+24/Oct/2023 13:30:13  Boundary conditions: 
                       
                         YZsymmetry: none
                         XZsymmetry: none
@@ -25,35 +25,35 @@
                         Zmax: electric
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:57  Order settings: 
+24/Oct/2023 13:30:13  Order settings: 
                       
                         Solver order   : 2nd (constant)
                         Curved elements: up to order 3 (automatic)
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:58    Mesh time                :	2 s
+24/Oct/2023 13:30:13    Mesh time                :	3 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:58  
+24/Oct/2023 13:30:13  
                       ================================================================================
                       Frequency Domain Solver calculation cycle started
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:58  Solver started at: 11:24 AM Tuesday, 24. October 2023 (中国标准时间)
+24/Oct/2023 13:30:13  Solver started at: 01:30 PM Tuesday, 24. October 2023 (中国标准时间)
                       
                         Module:  Frequency Domain: S-Parameter (Win 64)
                         Version: 2022.4 Release from 2022-04-26 (change 967892)
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:58    Calculation 1 of 1 (Frequency: 9 GHz)
+24/Oct/2023 13:30:14    Calculation 1 of 1 (Frequency: 9 GHz)
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:24:58  Automatically activated electric shielding for ports 1, 2.
+24/Oct/2023 13:30:14  Automatically activated electric shielding for ports 1, 2.
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:00    ----------------------------------------------------------------------------
+24/Oct/2023 13:30:15    ----------------------------------------------------------------------------
                         Port   Mode   Type        Z-Wave        Z-Wave-Sigma  Z-Line        F-Cutoff
                         1      1      TE          463           0             ---           5.232
                         2      1      TE          463           0             ---           5.238
@@ -61,104 +61,104 @@
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:00  Adaptive mesh refinement pass 1
+24/Oct/2023 13:30:15  Adaptive mesh refinement pass 1
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:00  Performing block excitation with block size 2 and 4 threads.  More...
+24/Oct/2023 13:30:15  Performing block excitation with block size 2 and 4 threads.  More...
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:00    Matrix setup time        :	0 s
+24/Oct/2023 13:30:15    Matrix setup time        :	0 s
                         Degrees of freedom       :	11206
                         Number of mesh cells     :	2001
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	4.05371e-06
+                        Accuracy                 :	3.92122e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:00    Stimulation port         :	2
+24/Oct/2023 13:30:15    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	3.46822e-06
+                        Accuracy                 :	3.27593e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:00  17% of all mesh edges seem to be longer than expected. The adaptive mesh refinement's growth limitation will therefore 
+24/Oct/2023 13:30:15  17% of all mesh edges seem to be longer than expected. The adaptive mesh refinement's growth limitation will therefore 
                       use 4044 instead of 2001 mesh cells as a reference.
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:01  Adaptive mesh refinement pass 2
+24/Oct/2023 13:30:16  Adaptive mesh refinement pass 2
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:01    Matrix setup time        :	0 s
+24/Oct/2023 13:30:17    Matrix setup time        :	0 s
+                        Solver setup             :	1 s
                         Degrees of freedom       :	19144
                         Number of mesh cells     :	3309
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	2.56573e-06
+                        Accuracy                 :	2.62547e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:01    Stimulation port         :	2
+24/Oct/2023 13:30:17    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	2.51754e-06
+                        Accuracy                 :	2.44411e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:01    Delta calculation        
-24/Oct/2023 11:25:01    All S-Parameters         :	0.0377944
+24/Oct/2023 13:30:17    Delta calculation        
+24/Oct/2023 13:30:17    All S-Parameters         :	0.037794
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:02  Adaptive mesh refinement pass 3
+24/Oct/2023 13:30:18  Adaptive mesh refinement pass 3
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Matrix setup time        :	0 s
-                        Solver setup             :	1 s
+24/Oct/2023 13:30:19    Matrix setup time        :	0 s
                         Degrees of freedom       :	29714
                         Number of mesh cells     :	5101
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	3.83315e-06
+                        Accuracy                 :	3.65483e-06
                         Iterations               :	1
-                        Solver time              :	0 s
+                        Solver time              :	1 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Stimulation port         :	2
+24/Oct/2023 13:30:19    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	3.72806e-06
+                        Accuracy                 :	3.63479e-06
                         Iterations               :	1
-                        Solver time              :	0 s
+                        Solver time              :	1 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Delta calculation        
-24/Oct/2023 11:25:03    All S-Parameters         :	0.0156321
+24/Oct/2023 13:30:19    Delta calculation        
+24/Oct/2023 13:30:19    All S-Parameters         :	0.0156334
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03  Mesh adaptation terminated because the desired accuracy limit is reached.
+24/Oct/2023 13:30:19  Mesh adaptation terminated because the desired accuracy limit is reached.
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Total time               :	5 s
+24/Oct/2023 13:30:19    Total time               :	5 s
                       
                       ------------------------------------------------------------------------------
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Calculation 2 (Frequency: 8 GHz)
+24/Oct/2023 13:30:19    Calculation 2 (Frequency: 8 GHz)
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    ----------------------------------------------------------------------------
+24/Oct/2023 13:30:19    ----------------------------------------------------------------------------
                         Port   Mode   Type        Z-Wave        Z-Wave-Sigma  Z-Line        F-Cutoff
                         1      1      TE          463           0             ---           5.232
                         2      1      TE          463           0             ---           5.238
@@ -166,36 +166,36 @@
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Matrix setup time        :	0 s
+24/Oct/2023 13:30:20    Matrix setup time        :	0 s
                         Degrees of freedom       :	29714
                         Number of mesh cells     :	5101
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	4.17413e-06
+                        Accuracy                 :	4.14818e-06
                         Iterations               :	1
-                        Solver time              :	0 s
+                        Solver time              :	1 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Stimulation port         :	2
+24/Oct/2023 13:30:20    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	3.87937e-06
+                        Accuracy                 :	3.81745e-06
                         Iterations               :	1
-                        Solver time              :	0 s
+                        Solver time              :	1 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Total time               :	0 s
+24/Oct/2023 13:30:20    Total time               :	1 s
                       
                       ------------------------------------------------------------------------------
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Calculation 3 (Frequency: 8.5 GHz)
+24/Oct/2023 13:30:20    Calculation 3 (Frequency: 8.5 GHz)
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    ----------------------------------------------------------------------------
+24/Oct/2023 13:30:20    ----------------------------------------------------------------------------
                         Port   Mode   Type        Z-Wave        Z-Wave-Sigma  Z-Line        F-Cutoff
                         1      1      TE          498           0             ---           5.232
                         2      1      TE          498           0             ---           5.238
@@ -203,36 +203,36 @@
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Matrix setup time        :	0 s
+24/Oct/2023 13:30:20    Matrix setup time        :	0 s
                         Degrees of freedom       :	29714
                         Number of mesh cells     :	5101
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	3.7044e-06
+                        Accuracy                 :	3.57456e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Stimulation port         :	2
+24/Oct/2023 13:30:20    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	3.51819e-06
+                        Accuracy                 :	3.604e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Total time               :	0 s
+24/Oct/2023 13:30:20    Total time               :	0 s
                       
                       ------------------------------------------------------------------------------
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    Calculation 4 (Frequency: 8.75 GHz)
+24/Oct/2023 13:30:20    Calculation 4 (Frequency: 8.75 GHz)
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:03    ----------------------------------------------------------------------------
+24/Oct/2023 13:30:20    ----------------------------------------------------------------------------
                         Port   Mode   Type        Z-Wave        Z-Wave-Sigma  Z-Line        F-Cutoff
                         1      1      TE          478           0             ---           5.232
                         2      1      TE          478           0             ---           5.238
@@ -240,36 +240,36 @@
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Matrix setup time        :	1 s
+24/Oct/2023 13:30:20    Matrix setup time        :	0 s
                         Degrees of freedom       :	29714
                         Number of mesh cells     :	5101
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	3.75207e-06
+                        Accuracy                 :	3.77127e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Stimulation port         :	2
+24/Oct/2023 13:30:20    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	3.83956e-06
+                        Accuracy                 :	3.71808e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Total time               :	1 s
+24/Oct/2023 13:30:20    Total time               :	0 s
                       
                       ------------------------------------------------------------------------------
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Calculation 5 (Frequency: 8.2118 GHz)
+24/Oct/2023 13:30:20    Calculation 5 (Frequency: 8.2118 GHz)
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    ----------------------------------------------------------------------------
+24/Oct/2023 13:30:20    ----------------------------------------------------------------------------
                         Port   Mode   Type        Z-Wave        Z-Wave-Sigma  Z-Line        F-Cutoff
                         1      1      TE          470           0             ---           5.232
                         2      1      TE          470           0             ---           5.238
@@ -277,32 +277,32 @@
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Matrix setup time        :	0 s
+24/Oct/2023 13:30:21    Matrix setup time        :	1 s
                         Degrees of freedom       :	29714
                         Number of mesh cells     :	5101
                       
                         Stimulation port         :	1
                         Mode number              :	1
-                        Accuracy                 :	3.54029e-06
+                        Accuracy                 :	3.49515e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Stimulation port         :	2
+24/Oct/2023 13:30:21    Stimulation port         :	2
                         Mode number              :	1
-                        Accuracy                 :	3.41429e-06
+                        Accuracy                 :	3.45638e-06
                         Iterations               :	1
                         Solver time              :	0 s
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Total time               :	0 s
+24/Oct/2023 13:30:21    Total time               :	1 s
                       
                       ------------------------------------------------------------------------------
 
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04  Finished the general purpose interpolative broadband frequency sweep:
+24/Oct/2023 13:30:21  Finished the general purpose interpolative broadband frequency sweep:
                       All broadband sweep convergence criteria have been satisfied after
                       calculating 5 frequency samples:
                       
@@ -314,33 +314,33 @@
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    Total Solver Time        :	8 s
+24/Oct/2023 13:30:21    Total Solver Time        :	10 s
                       ================================================================================
                       
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04    ----------------------------------------------------------------------------
+24/Oct/2023 13:30:21    ----------------------------------------------------------------------------
                                             Peak memory used (kB)         Free physical memory (kB) 
                                                                           At begin     Minimum      
                         ----------------------------------------------------------------------------
-                        Solver start        20584                         7655900      7655696      
-                        Eq. system setup    323652                        7596280      7398344      
-                        Eq. system solve    323652                        7588216      7398348      
-                        Mesh refinement     248972                        7573076      7436548      
-                        Solver run total    323652                        7655904      7398912      
+                        Solver start        21160                         8210464      8209064      
+                        Eq. system setup    324228                        8145812      7929380      
+                        Eq. system solve    324228                        8130292      7929436      
+                        Mesh refinement     290256                        8117100      7948984      
+                        Solver run total    324228                        8210468      7932920      
                       
                         Computer name       Feynman
                         ----------------------------------------------------------------------------
                       
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:04  Running postprocessing.
+24/Oct/2023 13:30:21  Running postprocessing.
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:06  Postprocessing finished.
+24/Oct/2023 13:30:23  Postprocessing finished.
                       
                       ------------------------------------------------------------------------------
-24/Oct/2023 11:25:07  Creating parametric 1D results for Run ID 1
+24/Oct/2023 13:30:23  Creating parametric 1D results for Run ID 1
                       
                       ------------------------------------------------------------------------------
