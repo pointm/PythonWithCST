@@ -3,26 +3,26 @@ from Modeling import *
 
 def DoubleRidgeWaveGuide(mws, DRWname, Component, Name, length, a, b, d, s, Matetial='Vacuum'):
     # 进行脊波导的建模
-    waveguide = Brick(mws)
+    DRW = Brick(mws)
     L = 10
-    waveguide.init(Component, Name, Matetial, [
-        '-'+a+'/2', a+'/2'], ['-'+b+'/2', b+'/2'], [length[0], length[1]]).create('创建双脊波导'+DRWname+'本体')
+    DRW.init(Component, Name, Matetial, [
+        f'-{a}/2', f'{a}/2'], [f'-{b}/2', f'{b}/2'], [length[0], length[1]]).create(f'创建双脊波导 {DRWname} 本体')
 
     cutoff = Brick(mws)
     cutoff.init(Component, DRWname+'cutoff', Matetial, [
-                '-'+s+'/2', s+'/2'], [d+'/2', b+'/2'], [length[0], length[1]]).create('创建'+DRWname+'被切除部分')
+                f'-{s}/2', f'{s}/2'], [f'{d}/2', f'{b}/2'], [length[0], length[1]]).create(f'创建 {DRWname} 被切除部分')
 
     transform = Transform(mws)
-    transform.MirrorTransForm('镜像'+DRWname+'切除部分', cutoff.Component,
+    transform.MirrorTransForm(f'镜像 {DRWname} 切除部分', cutoff.Component,
                               cutoff.Name, [0, -1, 0], True)
 
     # 切除波导冗余部位
     solid = Solid(mws)
-    solid.Subtract('开始减去'+DRWname+'切除部分部位1', waveguide.Component, waveguide.Name,
+    solid.Subtract(f'开始减去 {DRWname} 切除部分部位1', DRW.Component, DRW.Name,
                    cutoff.Component, cutoff.Name)
-    solid.Subtract('开始减去'+DRWname+'切除部分部位2', waveguide.Component, waveguide.Name,
+    solid.Subtract(f'开始减去 {DRWname} 切除部分部位2', DRW.Component, DRW.Name,
                    cutoff.Component, cutoff.Name+'_1')
-    return waveguide
+    return DRW
 
 
 path = os.path.dirname(os.path.abspath(__file__))  # 获取当前py文件所在文件夹路径，方便保存

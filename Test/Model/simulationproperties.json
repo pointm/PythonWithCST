@@ -1,0 +1,34 @@
+{
+    "active_solver": "HF Frequency Domain",
+    "frequency": {
+        "maximum": 9.0,
+        "maximum_expr": "9",
+        "minimum": 8.0,
+        "minimum_expr": "8",
+        "unit": "GHz"
+    },
+    "run_options": {
+        "optimizer_run": false,
+        "parameter_sweep_run": false,
+        "single_solver_run": true
+    },
+    "solver_support": {
+        "HF Frequency Domain": {
+            "dc_multi_node": true,
+            "dc_para_opt_multi_node": false,
+            "gpu": false,
+            "mpi": false,
+            "mpi_gpu": false,
+            "multi_gpu": false,
+            "price model": "Premium",
+            "user acc settings": {
+                "cpu devices": 2,
+                "dc nodes": 0,
+                "gpu devices": 0,
+                "mpi nodes": 0,
+                "threads or phys cores": 1024
+            }
+        }
+    },
+    "version": 3
+}
