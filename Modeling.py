@@ -696,11 +696,6 @@ class Mesh(StructureMacros):
             .SetMaxParallelMesherThreads "Tet", "1" 
         End With
         '''
-        sCommand = sCommand+'''
-        With Mesh 
-            .Update 
-        End With
-        '''
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
