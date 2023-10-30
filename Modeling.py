@@ -1,8 +1,8 @@
-'''
+"""
 encode with UTF-8
 PYTHON version 3.11.4 64-bit
 CST Studio version 2022
-'''
+"""
 import math
 import win32com.client
 import os
@@ -11,34 +11,34 @@ import matplotlib.pyplot as plt
 
 
 def quotes_to_list(text):
-    '''
+    """
     这是一个将跨行字符串分行转化为数组的函数
     一般我在将VBA语句大卸八块的时候会用这个函数作为辅助
-    '''
+    """
     lines = text.splitlines()
     quoted_lines = ["" + line.lstrip() + "" for line in lines]
     return quoted_lines
 
 
-class StructureMacros():
+class StructureMacros:
     mws = None
-    Classname = 'StructureMacros'
+    Classname = "StructureMacros"
 
     def __init__(self, handle) -> None:
         self.mws = handle
         if self.mws == None:
-            raise ('MWS未进行初始化，请重新进行mws初始化')
+            raise ("MWS未进行初始化，请重新进行mws初始化")
         else:
-            print(self.Classname+'MWS'+'初始化成功')
+            print(self.Classname + "MWS" + "初始化成功")
             pass
 
     def AddToHistoryWithList(self, Tag, Command):
-        '''
+        """
         添加到历史树
         Command只能是队列哦，不能传输裸字符串！
         适合在传递一小段一小段语句语句自定义程度较高的时候使用
-        '''
-        line_break = '\n'  # 这句话表示将每个单句用换行符链接起来
+        """
+        line_break = "\n"  # 这句话表示将每个单句用换行符链接起来
         Command = line_break.join(Command)  # 这句话表示将每个单句用换行符链接起来
         # AddToHistory ( string caption, string contents ) bool
         # 隶属于ProjectObject的方法，必须使用mws对象进行调用
@@ -46,10 +46,10 @@ class StructureMacros():
         self.mws.AddToHistory(Tag, Command)
 
     def AddToHistoryWithCommand(self, Tag, Command):
-        '''
+        """
         添加到历史树
         可以传输字符串，适合整段整段懒得改的时候的语句使用
-        '''
+        """
         # AddToHistory ( string caption, string contents ) bool
         # 隶属于ProjectObject的方法，必须使用mws对象进行调用
         self.mws._FlagAsMethod("AddToHistory")
@@ -60,14 +60,14 @@ class Initial(StructureMacros):
     cst = None
     mws = None
 
-    def __init__(self, lable='New', ProjectName=' ') -> None:
+    def __init__(self, lable="New", ProjectName=" ") -> None:
         self.cst = self.OpenCST()
-        if lable == 'New':
+        if lable == "New":
             handle = self.NewProject()
             self.BackGroundInitial()
             self.UnitInitial()
             self.BoundaryInitial()
-        elif lable == 'Open':
+        elif lable == "Open":
             handle = self.OpenProject(ProjectName=ProjectName)
 
     def OpenCST(self):
@@ -88,69 +88,71 @@ class Initial(StructureMacros):
         return self.mws
 
     def BackGroundInitial(self):
-        sCommand = ['With Background',
-                    '.ResetBackground',
-                    '.Type "PEC"',
-                    'End With']
-        self.AddToHistoryWithList(
-            Tag='Background Initial', Command=sCommand)
+        sCommand = ["With Background", ".ResetBackground", '.Type "PEC"', "End With"]
+        self.AddToHistoryWithList(Tag="Background Initial", Command=sCommand)
 
     def UnitInitial(self):
-        sCommand = ['With Units',
-                    '.Geometry "mm"',
-                    '.Frequency "ghz"',
-                    '.Time "ns"',
-                    'End With']
-        self.AddToHistoryWithList(Tag='Unit Initial', Command=sCommand)
+        sCommand = [
+            "With Units",
+            '.Geometry "mm"',
+            '.Frequency "ghz"',
+            '.Time "ns"',
+            "End With",
+        ]
+        self.AddToHistoryWithList(Tag="Unit Initial", Command=sCommand)
 
     def BoundaryInitial(self):
-        sCommand = ['With Boundary',
-                    '.Xmin "electric"',
-                    '.Xmax "electric"',
-                    '.Ymin "electric"',
-                    '.Ymax "electric"',
-                    '.Zmin "electric"',
-                    '.Zmax "electric"',
-                    '.Xsymmetry "none"',
-                    '.Ysymmetry "none"',
-                    '.Zsymmetry "none"',
-                    'End With']
-        self.AddToHistoryWithList(
-            Tag='Boundary Initial', Command=sCommand)
+        sCommand = [
+            "With Boundary",
+            '.Xmin "electric"',
+            '.Xmax "electric"',
+            '.Ymin "electric"',
+            '.Ymax "electric"',
+            '.Zmin "electric"',
+            '.Zmax "electric"',
+            '.Xsymmetry "none"',
+            '.Ysymmetry "none"',
+            '.Zsymmetry "none"',
+            "End With",
+        ]
+        self.AddToHistoryWithList(Tag="Boundary Initial", Command=sCommand)
 
-    def StoreParameters(self, parameterspath, encodewith='utf-8'):
+    def StoreParameters(self, parameterspath, encodewith="utf-8"):
         # 首先将指定路径的文件一行一行的读取出来
         # 文件可以是CST直接导出的变量文件
-        originalparameters = open(
-            parameterspath, encoding=encodewith).readlines()
+        originalparameters = open(parameterspath, encoding=encodewith).readlines()
 
         # 将处理好的参数储存到parameters列表里面，列表的每一行都是一个参数
         # 并且将参数与其值和备注直接分开，接受后续的处理
         parameters = []
         for item in originalparameters:
-            item = item.replace('\n', '')  # 去除换行符
-            item = re.sub("[= ]", '#', item)  # 将没用的符号批量置换成分隔符
-            item = item.split('#')  # 按照分隔符分开整行
+            item = item.replace("\n", "")  # 去除换行符
+            item = re.sub("[= ]", "#", item)  # 将没用的符号批量置换成分隔符
+            item = item.split("#")  # 按照分隔符分开整行
             parameters.append(item)
 
         # 将处理好的变量列表存储到应用中
-        sCommand = ''
+        sCommand = ""
         for parameter in parameters:
-            if parameter == ['']:
+            if parameter == [""]:
                 # 过滤掉文件开头或者结尾的空行
                 pass
             else:
-                sCommand = sCommand + '''  
+                sCommand = (
+                    sCommand
+                    + """  
             MakeSureParameterExists("{0}", {1})
             SetParameterDescription  ( "{2}", {3} )
-        '''.format(parameter[0], parameter[1], parameter[0], parameter[2])
+        """.format(
+                        parameter[0], parameter[1], parameter[0], parameter[2]
+                    )
+                )
         # print(sCommand)
-        self.AddToHistoryWithCommand(
-            Tag='存储变量', Command=sCommand)
+        self.AddToHistoryWithCommand(Tag="存储变量", Command=sCommand)
 
     def UseTemplate(self, Template, FrequencyRange):
-        if Template == 'WaveGuide And Cavity Filter':
-            sCommand = f'''
+        if Template == "WaveGuide And Cavity Filter":
+            sCommand = f"""
             'set the units
             With Units
                 .Geometry "mm"
@@ -257,13 +259,12 @@ class Initial(StructureMacros):
             ChangeSolverType("HF Frequency Domain")
 
             '----------------------------------------------------------------------------
-    '''
-        self.AddToHistoryWithCommand(
-            'Template:WaveGuide And Cavity Filter', sCommand)
+    """
+        self.AddToHistoryWithCommand("Template:WaveGuide And Cavity Filter", sCommand)
 
 
 class Material(StructureMacros):
-    MaterialName = ''
+    MaterialName = ""
     MaterialEpsilon = 0
     MaterialMu = 0
 
@@ -277,7 +278,7 @@ class Material(StructureMacros):
         return self
 
     def materialcreate(self):
-        sCommand = f'''With Material 
+        sCommand = f"""With Material 
      .Reset 
      .Name "{self.MaterialName}"
      .Folder ""
@@ -344,17 +345,17 @@ class Material(StructureMacros):
      .Transparentoutline "False" 
      .Transparency "0" 
      .Create
-End With
-'''
+    End With"""
         self.AddToHistoryWithCommand(
-            Tag='Add Material '+self.MaterialName, Command=sCommand)
+            Tag="Add Material " + self.MaterialName, Command=sCommand
+        )
         return self
 
 
 class GeneralModel(StructureMacros):
-    Component = ''
-    Name = ''
-    Material = ''
+    Component = ""
+    Name = ""
+    Material = ""
 
     def __init__(self, handle) -> None:
         self.mws = handle
@@ -370,10 +371,10 @@ class Brick(GeneralModel):
     Xrange = [0, 1]
     Yrange = [0, 1]
     Zrange = [0, 1]
-    Component = 'Hallo'
-    Name = 'World'
-    Material = 'PEC'
-    Classname = 'Brick'
+    Component = "Hallo"
+    Name = "World"
+    Material = "PEC"
+    Classname = "Brick"
 
     def init(self, Component, Name, Material, Xrange, Yrange, Zrange):
         self.Component = Component
@@ -385,7 +386,7 @@ class Brick(GeneralModel):
         return self
 
     def create(self, Tag):
-        Command = f'''With Brick
+        Command = f"""With Brick
      .Reset 
      .Name "{self.Name}" 
      .Component "{self.Component}" 
@@ -394,7 +395,7 @@ class Brick(GeneralModel):
      .Yrange "{self.Yrange[0]}", "{self.Yrange[1]}"
      .Zrange "{self.Zrange[0]}", "{self.Zrange[1]}" 
      .Create
-End With'''
+    End With"""
         self.AddToHistoryWithCommand(Tag, Command)
         return self
 
@@ -411,9 +412,20 @@ class Cylinder(GeneralModel):
     Zrange = [0, 0]
     Range = [0, 0]
     Segments = 0
-    Axis = 'z'
+    Axis = "z"
 
-    def init(self, Component, Name, Material, Axis, Innerradius, Outerradius, Center, Range, Segments=0):
+    def init(
+        self,
+        Component,
+        Name,
+        Material,
+        Axis,
+        Innerradius,
+        Outerradius,
+        Center,
+        Range,
+        Segments=0,
+    ):
         self.Component = Component
         self.Name = Name
         self.Material = Material
@@ -428,7 +440,7 @@ class Cylinder(GeneralModel):
         return self
 
     def create(self, Tag):
-        sCommand = f'''With Cylinder
+        sCommand = f"""With Cylinder
     .Reset
     .Name ("{self.Name}")
     .Component ("{self.Component}")
@@ -438,26 +450,35 @@ class Cylinder(GeneralModel):
     .Innerradius ("{self.Innerradius}")
     .Xcenter ("{self.Xcenter}")
     .Ycenter ("{self.Ycenter}")
-    .Zcenter ("{self.Zcenter}")'''
+    .Zcenter ("{self.Zcenter}")"""
 
-        if self.Axis == 'z':
-            sCommand = sCommand+f'''
+        if self.Axis == "z":
+            sCommand = (
+                sCommand
+                + f"""
     .Zrange ("{self.Range[0]}", "{self.Range[1]}")
     .Segments ("{self.Segments}")
     .Create
-End With'''
-        elif self.Axis == 'y':
-            sCommand = sCommand+f'''
+    End With"""
+            )
+        elif self.Axis == "y":
+            sCommand = (
+                sCommand
+                + f"""
     .Yrange ("{self.Range[0]}", "{self.Range[1]}")
     .Segments ("{self.Segments}")
     .Create
-End With'''
-        elif self.Axis == 'x':
-            sCommand = sCommand+f'''
+    End With"""
+            )
+        elif self.Axis == "x":
+            sCommand = (
+                sCommand
+                + f"""
     .Xrange ("{self.Range[0]}", "{self.Range[1]}")
     .Segments ("{self.Segments}")
     .Create
-End With'''
+    End With"""
+            )
         self.AddToHistoryWithCommand(Tag=Tag, Command=sCommand)
         return self
 
@@ -476,7 +497,9 @@ class Pick(StructureMacros):
         self.AddToHistoryWithCommand(Tag, sCommand)
 
     def PickEdgeFromId(self, Tag, Component, Name, edge_id, vertex_id):
-        sCommand = f'Pick.PickEdgeFromId "{Component}:{Name}", "{edge_id}", "{vertex_id}"'
+        sCommand = (
+            f'Pick.PickEdgeFromId "{Component}:{Name}", "{edge_id}", "{vertex_id}"'
+        )
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
@@ -500,7 +523,7 @@ class Transform(StructureMacros):
         pass
 
     def MirrorTransForm(self, Tag, Component, Name, NormalVector, Copy):
-        sCommand = f'''With Transform 
+        sCommand = f"""With Transform 
      .Reset 
      .Name "{Component}:{Name}" 
      .Origin "Free" 
@@ -513,14 +536,14 @@ class Transform(StructureMacros):
      .Destination "" 
      .Material "" 
      .Transform "Shape", "Mirror" 
-End With
-'''
+    End With"""
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
 class Solid(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
+
     pass
 
     def Subtract(self, Tag, component1, name1, component2, name2):
@@ -539,10 +562,10 @@ class Solid(StructureMacros):
 class Port(StructureMacros):
     PortNumber = 1
     NumberOfModes = 1
-    Coordinates = 'Picks'
-    Orientation = 'positive'
-    PortOnBound = 'True'
-    AdjustPolarization = 'False'
+    Coordinates = "Picks"
+    Orientation = "positive"
+    PortOnBound = "True"
+    AdjustPolarization = "False"
     Xrange = [0, 0]
     XrangeAdd = [0, 0]
     Yrange = [0, 0]
@@ -552,26 +575,27 @@ class Port(StructureMacros):
 
     def __init__(self, handle) -> None:
         self.mws = handle
+
     pass
 
-    def init(self,  Range, PortNumber, **kwargs):
+    def init(self, Range, PortNumber, **kwargs):
         self.Xrange = Range[0]
         self.Yrange = Range[1]
         self.Zrange = Range[2]
         self.PortNumber = PortNumber
         for key, value in kwargs.items():
             match key:
-                case 'NumberOfModes':
+                case "NumberOfModes":
                     self.NumberOfModes = value
-                case 'Coordinates':
+                case "Coordinates":
                     self.Coordinates = value
-                case 'Orientation':
+                case "Orientation":
                     self.Orientation = value
-                case 'PortOnBound':
+                case "PortOnBound":
                     self.PortOnBound = value
-                case 'AdjustPolarization':
+                case "AdjustPolarization":
                     self.AdjustPolarization = value
-                case 'AddRange':
+                case "AddRange":
                     self.XrangeAdd = [0]
                     self.YrangeAdd = [1]
                     self.ZrangeAdd = [2]
@@ -579,7 +603,7 @@ class Port(StructureMacros):
 
     def create(self, Tag):
         self.Tag = Tag
-        sCommand = f'''
+        sCommand = f"""
     With Port 
         .Reset 
         .PortNumber "{self.PortNumber}" 
@@ -604,9 +628,10 @@ class Port(StructureMacros):
         .SingleEnded "False"
         .WaveguideMonitor "False"
         .Create 
-    End With'''
-        self.AddToHistoryWithCommand(self.Tag +
-                                     'Add Port' + str(self.PortNumber), sCommand)
+    End With"""
+        self.AddToHistoryWithCommand(
+            self.Tag + "Add Port" + str(self.PortNumber), sCommand
+        )
         return self
 
 
@@ -621,20 +646,27 @@ class Mesh(StructureMacros):
     def __init__(self, handle) -> None:
         self.mws = handle
 
-    def init(self, StepsPerWaveNear, StepsPerWaveFar, StepsPerBoxNear, StepsPerBoxFar, **kwargs):
+    def init(
+        self,
+        StepsPerWaveNear,
+        StepsPerWaveFar,
+        StepsPerBoxNear,
+        StepsPerBoxFar,
+        **kwargs,
+    ):
         self.StepsPerBoxNear = StepsPerBoxNear
         self.StepsPerBoxFar = StepsPerBoxFar
         self.StepsPerWaveNear = StepsPerWaveNear
         self.StepsPerWaveFar = StepsPerWaveFar
         for key, value in kwargs.items():
             match key:
-                case 'MeshType':
+                case "MeshType":
                     self.MeshType = value
-                case 'SetCreator':
+                case "SetCreator":
                     self.SetCreator = value
 
     def MeshUpdate(self, Tag):
-        sCommand = f'''
+        sCommand = f"""
         With Mesh 
             .MeshType "{self.MeshType}" 
             .SetCreator "{self.SetCreator}"
@@ -695,7 +727,7 @@ class Mesh(StructureMacros):
             .SetParallelMesherMode "Tet", "maximum" 
             .SetMaxParallelMesherThreads "Tet", "1" 
         End With
-        '''
+        """
         self.AddToHistoryWithCommand(Tag, sCommand)
 
 
@@ -704,7 +736,7 @@ class Solver(StructureMacros):
         self.mws = handle
 
     def FDSolver(self):
-        sCommand = '''
+        sCommand = """
         Mesh.SetCreator "High Frequency" 
 
         With FDSolver
@@ -821,14 +853,14 @@ class Solver(StructureMacros):
             .CalculateModalWeightingCoefficientsCMA "True" 
             .DetectThinDielectrics "True" 
         End With
-        '''
-        self.AddToHistoryWithCommand('设置求解器', sCommand)
+        """
+        self.AddToHistoryWithCommand("设置求解器", sCommand)
         self.mws.FDSolver.Start
 
 
 def CstSaveAsProject(mws, projectName):
     mws._FlagAsMethod("SaveAs")
-    mws.SaveAs(projectName, 'false')
+    mws.SaveAs(projectName, "false")
 
 
 class PostProcessingItems(StructureMacros):
@@ -836,15 +868,15 @@ class PostProcessingItems(StructureMacros):
         self.mws = handle
         pass
 
-    def GetSparametersinRunID(self, ResultTag='S11'):
+    def GetSparametersinRunID(self, ResultTag="S11"):
         match ResultTag:
-            case 'S11':
+            case "S11":
                 TreeItem = "1D Results\\S-Parameters\\S1,1"  # (python记得写双斜杠哦)
-            case 'S12':
+            case "S12":
                 TreeItem = "1D Results\\S-Parameters\\S1,2"
-            case 'S21':
+            case "S21":
                 TreeItem = "1D Results\\S-Parameters\\S1,2"
-            case 'S22':
+            case "S22":
                 TreeItem = "1D Results\\S-Parameters\\S2,2"
 
         resultdatas = []
@@ -854,18 +886,19 @@ class PostProcessingItems(StructureMacros):
 
         # 'get an array of existing result ids for this tree item
         IDs = self.mws.Resulttree.GetResultIDsFromTreeItem(
-            TreeItem)  # 返回的是Result Navigator里面的RunID，如果有扫参的话就会有不同的ID出现
+            TreeItem
+        )  # 返回的是Result Navigator里面的RunID，如果有扫参的话就会有不同的ID出现
         for N in range(len(IDs)):
             spara = self.mws.Resulttree.GetResultFromTreeItem(TreeItem, IDs[N])
             # GetResultObjectType可不能在后面加上括号，因为在Result1DComplex Object里面的这个方法就没有括号
             resulttype = spara.GetResultObjectType
             if resulttype == "1DC":
                 resultdatas.append(spara)
-                FrequencyRange = spara.GetArray('x')
+                FrequencyRange = spara.GetArray("x")
                 Frequencyseries.append(FrequencyRange)
-                SRE = spara.GetArray('yre')
+                SRE = spara.GetArray("yre")
                 SREALseries.append(SRE)
-                SIM = spara.GetArray('yim')
+                SIM = spara.GetArray("yim")
                 SIMAGEseries.append(SIM)
                 # plt.plot(FrequencyRange, SRE, label='RealPart')
                 # plt.plot(FrequencyRange, SIM, label='Imag Part')
@@ -879,5 +912,29 @@ class PostProcessingItems(StructureMacros):
         # 返回一个已经打开的项目的选中的工程树中的命令的路径地址
         # 需要注意的是python的路径并不能用单斜杠表示，需要在路径的前方加上r进行转义或者使用双斜杠
         select_item_path = self.mws.GetSelectedTreeItem
-        select_item_path = select_item_path.replace('\\', '\\\\')
-        return (select_item_path)
+        select_item_path = select_item_path.replace("\\", "\\\\")
+        return select_item_path
+
+
+class Monitor(StructureMacros):
+    def __init__(self, handle) -> None:
+        self.mws = handle
+        pass
+
+    def CreateUsingArbitraryValues(self, Tag, frequencylist):
+        freqstr = ""
+        for freq in frequencylist:
+            freqstr = freqstr + str(freq) + ";"
+            pass
+
+        sCommand = f"""
+        With Monitor
+                .Reset
+                .Domain "Frequency"
+                .FieldType "Efield"
+                .Dimension "Volume"
+                .Coordinates "Structure"
+                .CreateUsingArbitraryValues "{freqstr}"
+        End With
+        """
+        self.AddToHistoryWithCommand(Tag, sCommand)
