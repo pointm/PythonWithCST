@@ -259,8 +259,12 @@ class Initial(StructureMacros):
             ChangeSolverType("HF Frequency Domain")
 
             '----------------------------------------------------------------------------
-    """
-        self.AddToHistoryWithCommand("Template:WaveGuide And Cavity Filter", sCommand)
+            """
+            self.AddToHistoryWithCommand(
+                "Template:WaveGuide And Cavity Filter", sCommand
+            )
+        else:
+            raise ("NoSuchTemplate")
 
 
 class Material(StructureMacros):
@@ -730,6 +734,87 @@ class Mesh(StructureMacros):
         """
         self.AddToHistoryWithCommand(Tag, sCommand)
 
+    def MeshUpdateHex(self, Tag):
+        sCommand = f"""With Mesh 
+                .MeshType "PBA" 
+                .SetCreator "High Frequency"
+            End With 
+            With MeshSettings 
+                .SetMeshType "Hex" 
+                .Set "Version", 1%
+                'MAX CELL - WAVELENGTH REFINEMENT 
+                .Set "StepsPerWaveNear", "{self.StepsPerWaveNear}" 
+                .Set "StepsPerWaveFar", "{self.StepsPerWaveFar}" 
+                .Set "WavelengthRefinementSameAsNear", "1" 
+                'MAX CELL - GEOMETRY REFINEMENT 
+                .Set "StepsPerBoxNear", "{self.StepsPerBoxNear}" 
+                .Set "StepsPerBoxFar", "{self.StepsPerBoxFar}" 
+                .Set "MaxStepNear", "0" 
+                .Set "MaxStepFar", "0" 
+                .Set "ModelBoxDescrNear", "maxedge" 
+                .Set "ModelBoxDescrFar", "maxedge" 
+                .Set "UseMaxStepAbsolute", "0" 
+                .Set "GeometryRefinementSameAsNear", "0" 
+                'MIN CELL 
+                .Set "UseRatioLimitGeometry", "1" 
+                .Set "RatioLimitGeometry", "15" 
+                .Set "MinStepGeometryX", "0" 
+                .Set "MinStepGeometryY", "0" 
+                .Set "MinStepGeometryZ", "0" 
+                .Set "UseSameMinStepGeometryXYZ", "1" 
+            End With 
+            With MeshSettings 
+                .Set "PlaneMergeVersion", "2" 
+            End With 
+            With MeshSettings 
+                .SetMeshType "Hex" 
+                .Set "FaceRefinementOn", "0" 
+                .Set "FaceRefinementPolicy", "2" 
+                .Set "FaceRefinementRatio", "2" 
+                .Set "FaceRefinementStep", "0" 
+                .Set "FaceRefinementNSteps", "2" 
+                .Set "EllipseRefinementOn", "0" 
+                .Set "EllipseRefinementPolicy", "2" 
+                .Set "EllipseRefinementRatio", "2" 
+                .Set "EllipseRefinementStep", "0" 
+                .Set "EllipseRefinementNSteps", "2" 
+                .Set "FaceRefinementBufferLines", "3" 
+                .Set "EdgeRefinementOn", "1" 
+                .Set "EdgeRefinementPolicy", "1" 
+                .Set "EdgeRefinementRatio", "2" 
+                .Set "EdgeRefinementStep", "0" 
+                .Set "EdgeRefinementBufferLines", "3" 
+                .Set "RefineEdgeMaterialGlobal", "0" 
+                .Set "RefineAxialEdgeGlobal", "0" 
+                .Set "BufferLinesNear", "3" 
+                .Set "UseDielectrics", "1" 
+                .Set "EquilibrateOn", "0" 
+                .Set "Equilibrate", "1.5" 
+                .Set "IgnoreThinPanelMaterial", "0" 
+            End With 
+            With MeshSettings 
+                .SetMeshType "Hex" 
+                .Set "SnapToAxialEdges", "1"
+                .Set "SnapToPlanes", "1"
+                .Set "SnapToSpheres", "1"
+                .Set "SnapToEllipses", "1"
+                .Set "SnapToCylinders", "1"
+                .Set "SnapToCylinderCenters", "1"
+                .Set "SnapToEllipseCenters", "1"
+            End With 
+            With Mesh 
+                .ConnectivityCheck "True"
+                .UsePecEdgeModel "True" 
+                .PointAccEnhancement "0" 
+                .TSTVersion "0"
+                .PBAVersion "2022060322" 
+                .SetCADProcessingMethod "MultiThread22", "-1" 
+                .SetGPUForMatrixCalculationDisabled "False" 
+            End With
+            """
+        self.AddToHistoryWithCommand("MeshUpdateHex", sCommand)
+        pass
+
 
 class Solver(StructureMacros):
     def __init__(self, handle) -> None:
@@ -938,3 +1023,144 @@ class Monitor(StructureMacros):
         End With
         """
         self.AddToHistoryWithCommand(Tag, sCommand)
+
+    def CreateUsingLinearSamples(self, Tag, FreqencyRange, Samples):
+        sCommand = f"""With Monitor
+          .Reset 
+          .Domain "Frequency"
+          .FieldType "Efield"
+          .Dimension "Volume" 
+          .Coordinates "Structure" 
+          .CreateUsingLinearSamples "{FreqencyRange[0]}", "{FreqencyRange[1]}", "{Samples}"
+        End With
+        """
+        self.AddToHistoryWithCommand(Tag, sCommand)
+        pass
+
+
+class FDSolver(StructureMacros):
+    def __init__(self, handle) -> None:
+        self.mws = handle
+
+    def FDSolverSetting(self, meshtype, broadbandsweepmethod):
+        if meshtype == "Hexahedral" and broadbandsweepmethod == "General purpose":
+            sCommand = """Mesh.SetCreator "High Frequency" 
+
+                With FDSolver
+                    .Reset 
+                    .SetMethod "Hexahedral", "General purpose" 
+                    .OrderTet "Second" 
+                    .OrderSrf "First" 
+                    .Stimulation "All", "All" 
+                    .ResetExcitationList 
+                    .AutoNormImpedance "False" 
+                    .NormingImpedance "50" 
+                    .ModesOnly "False" 
+                    .ConsiderPortLossesTet "True" 
+                    .SetShieldAllPorts "False" 
+                    .AccuracyHex "1e-6" 
+                    .AccuracyTet "1e-5" 
+                    .AccuracySrf "1e-3" 
+                    .LimitIterations "False" 
+                    .MaxIterations "0" 
+                    .SetCalcBlockExcitationsInParallel "True", "True", "" 
+                    .StoreAllResults "False" 
+                    .StoreResultsInCache "False" 
+                    .UseHelmholtzEquation "True" 
+                    .LowFrequencyStabilization "True" 
+                    .Type "Direct" 
+                    .MeshAdaptionHex "False" 
+                    .MeshAdaptionTet "True" 
+                    .AcceleratedRestart "True" 
+                    .FreqDistAdaptMode "Distributed" 
+                    .NewIterativeSolver "True" 
+                    .TDCompatibleMaterials "False" 
+                    .ExtrudeOpenBC "False" 
+                    .SetOpenBCTypeHex "Default" 
+                    .SetOpenBCTypeTet "Default" 
+                    .AddMonitorSamples "True" 
+                    .CalcPowerLoss "True" 
+                    .CalcPowerLossPerComponent "False" 
+                    .StoreSolutionCoefficients "True" 
+                    .UseDoublePrecision "False" 
+                    .UseDoublePrecision_ML "True" 
+                    .MixedOrderSrf "False" 
+                    .MixedOrderTet "False" 
+                    .PreconditionerAccuracyIntEq "0.15" 
+                    .MLFMMAccuracy "Default" 
+                    .MinMLFMMBoxSize "0.3" 
+                    .UseCFIEForCPECIntEq "True" 
+                    .UseEnhancedCFIE2 "True" 
+                    .UseFastRCSSweepIntEq "false" 
+                    .UseSensitivityAnalysis "False" 
+                    .UseEnhancedNFSImprint "False" 
+                    .RemoveAllStopCriteria "Hex"
+                    .AddStopCriterion "All S-Parameters", "0.01", "2", "Hex", "True"
+                    .AddStopCriterion "Reflection S-Parameters", "0.01", "2", "Hex", "False"
+                    .AddStopCriterion "Transmission S-Parameters", "0.01", "2", "Hex", "False"
+                    .RemoveAllStopCriteria "Tet"
+                    .AddStopCriterion "All S-Parameters", "0.01", "2", "Tet", "True"
+                    .AddStopCriterion "Reflection S-Parameters", "0.01", "2", "Tet", "False"
+                    .AddStopCriterion "Transmission S-Parameters", "0.01", "2", "Tet", "False"
+                    .AddStopCriterion "All Probes", "0.05", "2", "Tet", "True"
+                    .RemoveAllStopCriteria "Srf"
+                    .AddStopCriterion "All S-Parameters", "0.01", "2", "Srf", "True"
+                    .AddStopCriterion "Reflection S-Parameters", "0.01", "2", "Srf", "False"
+                    .AddStopCriterion "Transmission S-Parameters", "0.01", "2", "Srf", "False"
+                    .SweepMinimumSamples "3" 
+                    .SetNumberOfResultDataSamples "5001" 
+                    .SetResultDataSamplingMode "Automatic" 
+                    .SweepWeightEvanescent "1.0" 
+                    .AccuracyROM "1e-4" 
+                    .AddSampleInterval "", "", "1", "Automatic", "True" 
+                    .AddSampleInterval "", "", "", "Automatic", "False" 
+                    .MPIParallelization "False"
+                    .UseDistributedComputing "False"
+                    .NetworkComputingStrategy "RunRemote"
+                    .NetworkComputingJobCount "3"
+                    .UseParallelization "True"
+                    .MaxCPUs "1024"
+                    .MaximumNumberOfCPUDevices "2"
+                End With
+
+                With IESolver
+                    .Reset 
+                    .UseFastFrequencySweep "True" 
+                    .UseIEGroundPlane "False" 
+                    .SetRealGroundMaterialName "" 
+                    .CalcFarFieldInRealGround "False" 
+                    .RealGroundModelType "Auto" 
+                    .PreconditionerType "Auto" 
+                    .ExtendThinWireModelByWireNubs "False" 
+                    .ExtraPreconditioning "False" 
+                End With
+
+                With IESolver
+                    .SetFMMFFCalcStopLevel "0" 
+                    .SetFMMFFCalcNumInterpPoints "6" 
+                    .UseFMMFarfieldCalc "True" 
+                    .SetCFIEAlpha "0.500000" 
+                    .LowFrequencyStabilization "False" 
+                    .LowFrequencyStabilizationML "True" 
+                    .Multilayer "False" 
+                    .SetiMoMACC_I "0.0001" 
+                    .SetiMoMACC_M "0.0001" 
+                    .DeembedExternalPorts "True" 
+                    .SetOpenBC_XY "True" 
+                    .OldRCSSweepDefintion "False" 
+                    .SetRCSOptimizationProperties "True", "100", "0.00001" 
+                    .SetAccuracySetting "Custom" 
+                    .CalculateSParaforFieldsources "True" 
+                    .ModeTrackingCMA "True" 
+                    .NumberOfModesCMA "3" 
+                    .StartFrequencyCMA "-1.0" 
+                    .SetAccuracySettingCMA "Default" 
+                    .FrequencySamplesCMA "0" 
+                    .SetMemSettingCMA "Auto" 
+                    .CalculateModalWeightingCoefficientsCMA "True" 
+                    .DetectThinDielectrics "True" 
+                End With
+                """
+            self.AddToHistoryWithCommand("Set Mesh with Hexahedral", sCommand)
+        else:
+            raise ("NOSUCHTEMPLATE")
