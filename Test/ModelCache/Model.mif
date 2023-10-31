@@ -4,8 +4,8 @@
 [PCB_IMPORT: False]
 [PCB_IMPORT_NEW: False]
 [DISABLE_FAST_LOAD: False]
-[BBOX:-9.1449999999999996 9.1449999999999996 -6.21 6.21 -10.1 10.1]
-[BBOX_STRUCTURE:-9.1449999999999996 9.1449999999999996 -6.21 6.21 -10.1 10.1]
+[BBOX:-9.1449999999999996 9.1449999999999996 -6.3620038786882001 6.3620038786882001 -10.078925956523371 10.078925956523371]
+[BBOX_STRUCTURE:-9.1449999999999996 9.1449999999999996 -6.3620038786882001 6.3620038786882001 -10.078925956523371 10.078925956523371]
 [UNITS]
      .Geometry "mm" 
      .Frequency "GHz" 
@@ -401,7 +401,7 @@ Solver.FrequencyRange "8", "9"
      .SingleEnded "False"
      .WaveguideMonitor "False"
      .ReferenceWCS "9.145", "4.075", "0", "0", "0", "1", "0", "1", "0"
-(TRANSFORM) "1", "0", "0", "0", "1", "0", "0", "0", "1"| "-9.145", "-4.075", "10.1"(ENDTRANSFORM)
+(TRANSFORM) "1", "0", "0", "0", "1", "0", "0", "0", "1"| "-9.145", "-4.075", "10.078925956523"(ENDTRANSFORM)
 [ENDWAVEGUIDE]
 [WAVEGUIDE: 2]
      .Label ""
@@ -425,5 +425,5 @@ Solver.FrequencyRange "8", "9"
      .SingleEnded "False"
      .WaveguideMonitor "False"
      .ReferenceWCS "9.145", "4.075", "0", "0", "0", "-1", "0", "1", "0"
-(TRANSFORM) "1", "0", "0", "0", "1", "0", "0", "0", "1"| "-9.145", "-4.075", "-10.1"(ENDTRANSFORM)
+(TRANSFORM) "1", "0", "0", "0", "1", "0", "0", "0", "1"| "-9.145", "-4.075", "-10.078925956523"(ENDTRANSFORM)
 [ENDWAVEGUIDE]

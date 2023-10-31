@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SchematicTopology Version="2.5" Seed="1" Grid="25">
-    <Block Id="1" ForeignId="38537730" Class="MWSSCHEM" ImageIndex="1">
+    <Block Id="1" ForeignId="400615908" Class="MWSSCHEM" ImageIndex="1">
         <Size Height="150" Width="150"/>
         <Pins Distribution="TwoSidesDownward">
             <Pin Index="0" Port="0" BlockPosition="Left">

@@ -689,8 +689,8 @@ visibility=s:visible
 creation=s:internal
 lifetime=s:rebuild
 result=s:1
-treepath=s:1D Results\Power\Excitation [1]\Loss per Material\Metal loss in [Boundary wall]
-files=s:cMetal_loss_[Boundary wall](1).sig
+treepath=s:1D Results\Power\Excitation [1]\Loss in Metals
+files=s:cTotal_metal_loss(1).sig
 
 type=s:XYSIGNAL2
 subtype=s:complex
@@ -699,8 +699,8 @@ visibility=s:visible
 creation=s:internal
 lifetime=s:rebuild
 result=s:1
-treepath=s:1D Results\Power\Excitation [1]\Loss in Metals
-files=s:cTotal_metal_loss(1).sig
+treepath=s:1D Results\Power\Excitation [1]\Loss per Material\Metal loss in [Boundary wall]
+files=s:cMetal_loss_[Boundary wall](1).sig
 
 type=s:XYSIGNAL2
 subtype=s:complex
@@ -1231,8 +1231,8 @@ creation=s:internal
 lifetime=s:surviveparchange
 result=s:1
 parametric=s:P
-treepath=s:1D Results\Power\Excitation [1]\Loss per Material\Metal loss in [Boundary wall]
-files=s:cMetal_loss_[Boundary wall](1).sig
+treepath=s:1D Results\Power\Excitation [1]\Loss in Metals
+files=s:cTotal_metal_loss(1).sig
 
 type=s:XYSIGNAL2
 subtype=s:complex
@@ -1242,8 +1242,8 @@ creation=s:internal
 lifetime=s:surviveparchange
 result=s:1
 parametric=s:P
-treepath=s:1D Results\Power\Excitation [1]\Loss in Metals
-files=s:cTotal_metal_loss(1).sig
+treepath=s:1D Results\Power\Excitation [1]\Loss per Material\Metal loss in [Boundary wall]
+files=s:cMetal_loss_[Boundary wall](1).sig
 
 type=s:XYSIGNAL2
 subtype=s:complex

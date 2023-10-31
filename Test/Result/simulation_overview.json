@@ -1,5 +1,5 @@
 {
-    "date": "2023-10-24, 1:30:23 PM, ??????",
+    "date": "2023-10-31, 11:05:16 PM, ??????",
     "solver_runs_and_tasks": {
         "module_name": "standard simulation project",
         "solver_run": {
@@ -31,7 +31,7 @@
                 "num_cpu_sockets": 1,
                 "num_dc_nodes": 0,
                 "num_gpus": -1,
-                "num_threads_or_physical_cores": 4
+                "num_threads_or_physical_cores": 6
             },
             "solver_used": "SOLVER_HF_TET_FD",
             "task_name": "solver run",
@@ -44,6 +44,6 @@
             }
         }
     },
-    "studio-version": "2022.4 Release from 2022-04-26 (change 967892)",
+    "studio-version": "2022.5 Release from 2022-06-03 (change 981760)",
     "version": 1
 }

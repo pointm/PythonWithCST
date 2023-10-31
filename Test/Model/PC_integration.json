@@ -32,17 +32,22 @@
       {
          "name": "wt",
          "type": "float",
-         "value": 0.2
+         "value": 0.15785191304674
       },
       {
          "name": "wr",
          "type": "float",
-         "value": 6.21
+         "value": 6.3620038786882
       },
       {
-         "name": "t",
+         "name": "trh",
          "type": "float",
-         "value": 0.2
+         "value": 0.19296535797318
+      },
+      {
+         "name": "tb",
+         "type": "float",
+         "value": 2.7735691617668
       }
    ],
    "outputVariables": []
