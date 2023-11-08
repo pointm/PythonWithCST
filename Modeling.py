@@ -668,6 +668,7 @@ class Mesh(StructureMacros):
                     self.MeshType = value
                 case "SetCreator":
                     self.SetCreator = value
+        return self
 
     def MeshUpdate(self, Tag):
         sCommand = f"""
@@ -812,7 +813,7 @@ class Mesh(StructureMacros):
                 .SetGPUForMatrixCalculationDisabled "False" 
             End With
             """
-        self.AddToHistoryWithCommand("MeshUpdateHex", sCommand)
+        self.AddToHistoryWithCommand(Tag, sCommand)
         pass
 
 
