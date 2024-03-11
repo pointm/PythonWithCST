@@ -1,15 +1,15 @@
-'# MWS Version: Version 2022.5 - Jun 03 2022 - ACIS 31.0.1 -
+'# MWS Version: Version 2022.4 - Apr 26 2022 - ACIS 31.0.1 -
 
 '# length = mm
 '# frequency = GHz
 '# time = ns
 '# frequency range: fmin = 8 fmax = 9
-'# created = '[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'# created = '[VERSION]2022.4|31.0.1|20220426[/VERSION]
 
 
 '@ Background Initial
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Background
 .ResetBackground
 .Type "PEC"
@@ -17,7 +17,7 @@ End With
 
 '@ Unit Initial
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Units
 .Geometry "mm"
 .Frequency "ghz"
@@ -26,7 +26,7 @@ End With
 
 '@ Boundary Initial
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Boundary
 .Xmin "electric"
 .Xmax "electric"
@@ -41,7 +41,7 @@ End With
 
 '@ Template:WaveGuide And Cavity Filter
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 'set the units
             With Units
                 .Geometry "mm"
@@ -149,9 +149,9 @@ End With
 
             '----------------------------------------------------------------------------
 
-'@ 存储变量
+'@ StoreParameters
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 MakeSureParameterExists("a", "18.29")
             SetParameterDescription  ( "a", "a" )
           
@@ -184,7 +184,7 @@ MakeSureParameterExists("a", "18.29")
 
 '@ Add Material Sapphire
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Material 
      .Reset 
      .Name "Sapphire"
@@ -254,9 +254,9 @@ With Material
      .Create
     End With
 
-'@ 创建圆柱形蓝宝石窗片
+'@ Creat the sappire disc
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Cylinder
     .Reset
     .Name ("SapphireWindow")
@@ -275,17 +275,17 @@ With Cylinder
 
 '@ 选取圆柱窗片中心点
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Pick.PickCenterpointFromId "Window:SapphireWindow", "3"
 
 '@ 将中心点移到圆柱窗片中心
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 WCS.AlignWCSWithSelected "Point"
 
-'@ 创建双脊波导 DoubleRidgeWaveGuide 本体
+'@ Create Double Ridge Waveguide :DoubleRidgeWaveGuide
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Brick
      .Reset 
      .Name "DRW1" 
@@ -297,9 +297,9 @@ With Brick
      .Create
     End With
 
-'@ 创建 DoubleRidgeWaveGuide 被切除部分
+'@ Create the cut-off part of DoubleRidgeWaveGuide
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Brick
      .Reset 
      .Name "DoubleRidgeWaveGuidecutoff" 
@@ -311,9 +311,9 @@ With Brick
      .Create
     End With
 
-'@ 镜像 DoubleRidgeWaveGuide 切除部分
+'@ Mirror transform the cut-off part of DoubleRidgeWaveGuide
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Transform 
      .Reset 
      .Name "WaveGuide:DoubleRidgeWaveGuidecutoff" 
@@ -329,19 +329,19 @@ With Transform
      .Transform "Shape", "Mirror" 
     End With
 
-'@ 开始减去 DoubleRidgeWaveGuide 切除部分部位1
+'@ Cut the cutoff part 1
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Solid.Subtract "WaveGuide:DRW1", "WaveGuide:DoubleRidgeWaveGuidecutoff"
 
-'@ 开始减去 DoubleRidgeWaveGuide 切除部分部位2
+'@ Cut the cutoff part 2
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Solid.Subtract "WaveGuide:DRW1", "WaveGuide:DoubleRidgeWaveGuidecutoff_1"
 
-'@ 添加过渡波导
+'@ Add transport waveguide
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Brick
      .Reset 
      .Name "TW" 
@@ -353,19 +353,19 @@ With Brick
      .Create
     End With
 
-'@ 将脊波导与过渡波导相加
+'@ Add the DRW with the transport waveguide
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Solid.Add "WaveGuide:DRW1", "WaveGuide:TW"
 
-'@ 激活全局坐标系，准备变换
+'@ Active the global WCS
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 WCS.ActivateWCS "global"
 
-'@ 将创建完成的脊波导进行镜像
+'@ Mirror Transformation of DRW
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Transform 
      .Reset 
      .Name "WaveGuide:DRW1" 
@@ -381,14 +381,14 @@ With Transform
      .Transform "Shape", "Mirror" 
     End With
 
-'@ 选取面1
+'@ Pick face 1
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Pick.PickFaceFromId "WaveGuide:DRW1", "27"
 
-'@ 添加端口1Add Port1
+'@ Add port 1Add Port1
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Port 
         .Reset 
         .PortNumber "1" 
@@ -415,14 +415,14 @@ With Port
         .Create 
     End With
 
-'@ 选取面2
+'@ Pick face 2
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Pick.PickFaceFromId "WaveGuide:DRW1_1", "27"
 
-'@ 添加端口2Add Port2
+'@ Add port 2Add Port2
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Port 
         .Reset 
         .PortNumber "2" 
@@ -449,9 +449,9 @@ With Port
         .Create 
     End With
 
-'@ 网格更新
+'@ Update the mesh
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 With Mesh 
             .MeshType "Tetrahedral" 
             .SetCreator "High Frequency"
@@ -515,7 +515,7 @@ With Mesh
 
 '@ 设置求解器
 
-'[VERSION]2022.5|31.0.1|20220603[/VERSION]
+'[VERSION]2022.4|31.0.1|20220426[/VERSION]
 Mesh.SetCreator "High Frequency" 
 
         With FDSolver

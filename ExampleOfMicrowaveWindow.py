@@ -5,43 +5,48 @@ def DoubleRidgeWaveGuide(
     mws, DRWname, Component, Name, length, a, b, d, s, Matetial="Vacuum"
 ):
     # 进行脊波导的建模
-    DRW = Brick(mws)
-    L = 10
-    DRW.init(
+    DRW = Brick(
+        mws,
+        f"Create Double Ridge Waveguide :{DRWname}",
         Component,
         Name,
         Matetial,
         [f"-{a}/2", f"{a}/2"],
         [f"-{b}/2", f"{b}/2"],
         [length[0], length[1]],
-    ).create(f"创建双脊波导 {DRWname} 本体")
-
-    cutoff = Brick(mws)
-    cutoff.init(
+    ).returnmyself()
+    L = 10
+    cutoff = Brick(
+        mws,
+        f"Create the cut-off part of {DRWname}",
         Component,
         DRWname + "cutoff",
         Matetial,
         [f"-{s}/2", f"{s}/2"],
         [f"{d}/2", f"{b}/2"],
         [length[0], length[1]],
-    ).create(f"创建 {DRWname} 被切除部分")
+    ).returnmyself()
 
     transform = Transform(mws)
     transform.MirrorTransForm(
-        f"镜像 {DRWname} 切除部分", cutoff.Component, cutoff.Name, [0, -1, 0], True
+        f"Mirror transform the cut-off part of {DRWname}",
+        cutoff.Component,
+        cutoff.Name,
+        [0, -1, 0],
+        True,
     )
 
     # 切除波导冗余部位
     solid = Solid(mws)
     solid.Subtract(
-        f"开始减去 {DRWname} 切除部分部位1",
+        f"Cut the cutoff part 1",
         DRW.Component,
         DRW.Name,
         cutoff.Component,
         cutoff.Name,
     )
     solid.Subtract(
-        f"开始减去 {DRWname} 切除部分部位2",
+        f"Cut the cutoff part 2",
         DRW.Component,
         DRW.Name,
         cutoff.Component,
@@ -50,7 +55,9 @@ def DoubleRidgeWaveGuide(
     return DRW
 
 
-path = os.path.dirname(os.path.abspath(__file__))  # 获取当前py文件所在文件夹路径，方便保存
+path = os.path.dirname(
+    os.path.abspath(__file__)
+)  # 获取当前py文件所在文件夹路径，方便保存
 filename = "Test.cst"  # 保存的文件的名称，要加后缀cst
 projectName = os.path.join(path, filename)
 
@@ -74,12 +81,11 @@ parameterspath = os.path.join(path, parametersfilename)
 init.StoreParameters(parameterspath)
 
 # 创建材料Sapphire蓝宝石
-sapphire = Material(mws)
-sapphire.materialinitial("Sapphire", 6.5, 1).materialcreate()
-
+sapphire = Material(mws, "Sapphire", 6.5, 1).returnmyself()
 # 创建圆柱形窗片
-cylinderwindow = Cylinder(mws)
-cylinderwindow.init(
+cylinderwindow = Cylinder(
+    mws,
+    "Creat the sappire disc",
     "Window",
     "SapphireWindow",
     sapphire.MaterialName,
@@ -88,7 +94,7 @@ cylinderwindow.init(
     "wr",
     [0, 0, 0],
     ["-wt/2", "wt/2"],
-).create("创建圆柱形蓝宝石窗片")
+).returnmyself()
 
 # 选取圆柱形窗片中点，将坐标系进行位移
 pick = Pick(mws)
@@ -106,39 +112,56 @@ waveguide = DoubleRidgeWaveGuide(
 )
 
 # 补偿波导建模，顺便一提论文的这个部分有问题，具体的宽度我只能脑测了
-transportwaveguide = Brick(mws)
-transportwaveguide.init(
+transportwaveguide = Brick(
+    mws,
+    "Add transport waveguide",
     waveguide.Component,
     "TW",
     waveguide.Material,
     ["-ta/2", "ta/2"],
     ["-tb/2", "tb/2"],
     [0, "trh"],
-).create("添加过渡波导")
-solid.Add("将脊波导与过渡波导相加", waveguide.Component, waveguide.Name, waveguide.Component, "TW")
+).returnmyself()
+
+solid.Add(
+    "Add the DRW with the transport waveguide",
+    waveguide.Component,
+    waveguide.Name,
+    waveguide.Component,
+    "TW",
+)
 
 trans = Transform(mws)
 # 创建全局坐标系，进行变换
-wcs.ActivateWCSGlobal("激活全局坐标系，准备变换")
+wcs.ActivateWCSGlobal()
 trans.MirrorTransForm(
-    "将创建完成的脊波导进行镜像", waveguide.Component, waveguide.Name, [0, 0, -1], True
+    "Mirror Transformation of DRW",
+    waveguide.Component,
+    waveguide.Name,
+    [0, 0, -1],
+    True,
 )
 # 选取面，并且设置端口
-pick.PickFaceFromId("选取面1", waveguide.Component, waveguide.Name, 27)
-setport = Port(mws)
-setport.init([["-a/2", "a/2"], ["-b/2", "b/2"], ["wt/2+10", "wt/2+10"]], PortNumber=1)
-setport.create("添加端口1")
-
-pick.PickFaceFromId("选取面2", waveguide.Component, waveguide.Name + "_1", 27)
-setport.init(
-    [["-a/2", "a/2"], ["-b/2", "b/2"], ["-(wt/2+10)", "-(wt/2+10)"]], PortNumber=2
+pick.PickFaceFromId("Pick face 1", waveguide.Component, waveguide.Name, 27)
+Port(
+    mws,
+    "Add port 1",
+    [["-a/2", "a/2"], ["-b/2", "b/2"], ["wt/2+10", "wt/2+10"]],
+    PortNumber=1,
 )
-setport.create("添加端口2")
+
+pick.PickFaceFromId("Pick face 2", waveguide.Component, waveguide.Name + "_1", 27)
+Port(
+    mws,
+    "Add port 2",
+    [["-a/2", "a/2"], ["-b/2", "b/2"], ["-(wt/2+10)", "-(wt/2+10)"]],
+    PortNumber=2,
+)
 
 # 更新网格并且求解(我不会写网格更新（悲）)
 mesh = Mesh(mws)
 mesh.init(10, 5, 6, 5)
-mesh.MeshUpdate("网格更新")
+mesh.MeshUpdate("Update the mesh")
 
 # 进行求解(我也不会写求解器(悲))
 solver = Solver(mws)

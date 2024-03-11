@@ -354,5 +354,5 @@ refine edgeswr
 
 forceimprovementnum 1
 
-maxthreads 6
+maxthreads 4
 

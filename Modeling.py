@@ -30,7 +30,7 @@ class StructureMacros:
         if self.mws == None:
             raise ("MWS未进行初始化，请重新进行mws初始化")
         else:
-            print(self.Classname + "MWS" + "初始化成功")
+            print(f"{self.Classname}MWS初始化成功", end="\r")
             pass
 
     def AddToHistoryWithList(self, Tag, Command):
@@ -55,6 +55,9 @@ class StructureMacros:
         # 隶属于ProjectObject的方法，必须使用mws对象进行调用
         self.mws._FlagAsMethod("AddToHistory")
         self.mws.AddToHistory(Tag, Command)
+
+    def returnmyself(self):
+        return self
 
 
 class Initial(StructureMacros):
@@ -273,14 +276,12 @@ class Material(StructureMacros):
     MaterialEpsilon = 0
     MaterialMu = 0
 
-    def __init__(self, handle) -> None:
-        self.mws = handle
-
-    def materialinitial(self, Name, Epsilon, Mu):
+    def __init__(self, handle, Name, Epsilon, Mu) -> None:
+        super().__init__(handle)
         self.MaterialName = Name
         self.MaterialEpsilon = Epsilon
         self.MaterialMu = Mu
-        return self
+        self.materialcreate()
 
     def materialcreate(self):
         sCommand = f"""With Material 
@@ -361,12 +362,14 @@ class GeneralModel(StructureMacros):
     Component = ""
     Name = ""
     Material = ""
+    Tag = ""
 
-    def __init__(self, handle) -> None:
-        self.mws = handle
-
-    def init(self):
-        pass
+    def __init__(self, handle, Tag, Component, Name, Material) -> None:
+        super().__init__(handle)
+        self.Component = Component
+        self.Name = Name
+        self.Material = Material
+        self.Tag = Tag
 
     def create(self):
         pass
@@ -381,16 +384,16 @@ class Brick(GeneralModel):
     Material = "PEC"
     Classname = "Brick"
 
-    def init(self, Component, Name, Material, Xrange, Yrange, Zrange):
-        self.Component = Component
-        self.Name = Name
-        self.Material = Material
+    def __init__(
+        self, handle, Tag, Component, Name, Material, Xrange, Yrange, Zrange
+    ) -> None:
+        super().__init__(handle, Tag, Component, Name, Material)
         self.Xrange = Xrange
         self.Yrange = Yrange
         self.Zrange = Zrange
-        return self
+        self.create()
 
-    def create(self, Tag):
+    def create(self):
         Command = f"""With Brick
      .Reset 
      .Name "{self.Name}" 
@@ -401,7 +404,7 @@ class Brick(GeneralModel):
      .Zrange "{self.Zrange[0]}", "{self.Zrange[1]}" 
      .Create
     End With"""
-        self.AddToHistoryWithCommand(Tag, Command)
+        self.AddToHistoryWithCommand(self.Tag, Command)
         return self
 
 
@@ -419,8 +422,10 @@ class Cylinder(GeneralModel):
     Segments = 0
     Axis = "z"
 
-    def init(
+    def __init__(
         self,
+        handle,
+        Tag,
         Component,
         Name,
         Material,
@@ -430,10 +435,8 @@ class Cylinder(GeneralModel):
         Center,
         Range,
         Segments=0,
-    ):
-        self.Component = Component
-        self.Name = Name
-        self.Material = Material
+    ) -> None:
+        super().__init__(handle, Tag, Component, Name, Material)
         self.Innerradius = Innerradius
         self.Outerradius = Outerradius
         self.Xcenter = Center[0]
@@ -442,9 +445,9 @@ class Cylinder(GeneralModel):
         self.Range = Range
         self.Segments = Segments
         self.Axis = Axis
-        return self
+        self.create()
 
-    def create(self, Tag):
+    def create(self):
         sCommand = f"""With Cylinder
     .Reset
     .Name ("{self.Name}")
@@ -484,14 +487,13 @@ class Cylinder(GeneralModel):
     .Create
     End With"""
             )
-        self.AddToHistoryWithCommand(Tag=Tag, Command=sCommand)
+        self.AddToHistoryWithCommand(Tag=self.Tag, Command=sCommand)
         return self
 
 
 class Pick(StructureMacros):
     def __init__(self, handle) -> None:
-        self.mws = handle
-        pass
+        super().__init__(handle)
 
     def PickCenterpointFromId(self, Tag, Component, Name, Id):
         sCommand = f'Pick.PickCenterpointFromId "{Component}:{Name}", "{Id}"'
@@ -507,8 +509,12 @@ class Pick(StructureMacros):
         )
         self.AddToHistoryWithCommand(Tag, sCommand)
 
-    def PickEdgeFromPoint(self, Tag, Component, Name, PointIndex):
-        sCommand = f'Pick.PickEdgeFromPoint "{Component}:{Name}",{PointIndex[0]},{PointIndex[1]},{PointIndex[2]}'
+    def PickEdgeFromPoint(self, Tag, Component, Name, PointCoordinate):
+        sCommand = f'Pick.PickEdgeFromPoint "{Component}:{Name}",{PointCoordinate[0]},{PointCoordinate[1]},{PointCoordinate[2]}'
+        self.AddToHistoryWithCommand(Tag, sCommand)
+
+    def PickFaceFromPoint(self, Tag, Component, Name, PointCoordinate):
+        sCommand = f'Pick.PickFaceFromPoint "{Component}:{Name}",{PointCoordinate[0]},{PointCoordinate[1]},{PointCoordinate[2]}'
         self.AddToHistoryWithCommand(Tag, sCommand)
 
     def PickPointFromCoordinates(self, Tag, PointCoordinate):
@@ -518,7 +524,7 @@ class Pick(StructureMacros):
 
 class WCS(StructureMacros):
     def __init__(self, handle) -> None:
-        self.mws = handle
+        super().__init__(handle)
 
     def AlignWCSWithSelectedPoint(self, Tag):
         self.AddToHistoryWithCommand(Tag, 'WCS.AlignWCSWithSelected "Point"')
@@ -534,8 +540,7 @@ class WCS(StructureMacros):
 
 class Transform(StructureMacros):
     def __init__(self, handle) -> None:
-        self.mws = handle
-        pass
+        super().__init__(handle)
 
     def MirrorTransForm(self, Tag, Component, Name, NormalVector, Copy):
         sCommand = f"""With Transform 
@@ -576,7 +581,7 @@ class Transform(StructureMacros):
 
 class Solid(StructureMacros):
     def __init__(self, handle) -> None:
-        self.mws = handle
+        super().__init__(handle)
 
     def Subtract(self, Tag, component1, name1, component2, name2):
         sCommand = f'Solid.Subtract "{component1}:{name1}", "{component2}:{name2}"'
@@ -609,12 +614,8 @@ class Port(StructureMacros):
     Zrange = [0, 0]
     ZrangeAdd = [0, 0]
 
-    def __init__(self, handle) -> None:
-        self.mws = handle
-
-    pass
-
-    def init(self, Range, PortNumber, **kwargs):
+    def __init__(self, handle, Tag, Range, PortNumber, **kwargs) -> None:
+        super().__init__(handle)
         self.Xrange = Range[0]
         self.Yrange = Range[1]
         self.Zrange = Range[2]
@@ -635,7 +636,7 @@ class Port(StructureMacros):
                     self.XrangeAdd = [0]
                     self.YrangeAdd = [1]
                     self.ZrangeAdd = [2]
-        return self
+        self.create(Tag)
 
     def create(self, Tag):
         self.Tag = Tag
