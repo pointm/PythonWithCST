@@ -30,7 +30,7 @@ class StructureMacros:
         if self.mws == None:
             raise ("MWS未进行初始化，请重新进行mws初始化")
         else:
-            print(f"{self.Classname}MWS初始化成功", end="\r")
+            print(f"{self.Classname}MWS初始化成功{' '*20}", end="\r")
             pass
 
     def AddToHistoryWithList(self, Tag, Command):
@@ -420,6 +420,7 @@ class Cylinder(GeneralModel):
     Range = [0, 0]
     Segments = 0
     Axis = "z"
+    Classname = "Cylinder"
 
     def __init__(
         self,
@@ -490,8 +491,56 @@ class Cylinder(GeneralModel):
         return self
 
 
+class AnalyticalFace(GeneralModel):
+    LawX = ""
+    LawY = ""
+    LawZ = ""
+    ParameterRangeU = ""
+    ParameterRangeV = ""
+    Classname = "AnalyticalFace"
+
+    def __init__(
+        self,
+        handle,
+        Tag,
+        Component,
+        Name,
+        Material,
+        LawX,
+        LawY,
+        LawZ,
+        ParameterRangeU,
+        ParameterRangeV,
+    ) -> None:
+        super().__init__(handle, Tag, Component, Name, Material)
+        self.LawX = LawX
+        self.LawY = LawY
+        self.LawZ = LawZ
+        self.ParameterRangeU = ParameterRangeU
+        self.ParameterRangeV = ParameterRangeV
+        self.create()
+
+    def create(self):
+        sCommand = f"""
+        With AnalyticalFace
+            .Reset 
+            .Name "{self.Name}" 
+            .Component "{self.Component}" 
+            .Material "{self.Material}" 
+            .LawX "{self.LawX}" 
+            .LawY "{self.LawY}" 
+            .LawZ "{self.LawZ}" 
+            .ParameterRangeU "{self.ParameterRangeU[0]}", "{self.ParameterRangeU[1]}" 
+            .ParameterRangeV "{self.ParameterRangeV[0]}", "{self.ParameterRangeV[1]}" 
+            .Create
+        End With"""
+        self.AddToHistoryWithCommand(self.Tag, sCommand)
+        return super().create()
+
+
 class Pick(StructureMacros):
     Classname = "Pick"
+
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -524,6 +573,7 @@ class Pick(StructureMacros):
 
 class WCS(StructureMacros):
     Classname = "WCS"
+
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -541,6 +591,7 @@ class WCS(StructureMacros):
 
 class Transform(StructureMacros):
     Classname = "Transform"
+
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -583,6 +634,7 @@ class Transform(StructureMacros):
 
 class Solid(StructureMacros):
     Classname = "Solid"
+
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -592,7 +644,7 @@ class Solid(StructureMacros):
 
     def Add(self, Tag, component1, name1, component2, name2):
         sCommand = f'Solid.Add "{component1}:{name1}", "{component2}:{name2}"'
-        self.AddToHistoryWithCommand(Tag, sCommand)
+        self.AddToHistoryWithCommand(Tag, sCommand)  # 留下来的是后面的那个面，后来居上
 
     def BlendEdge(self, Tag, radius):
         sCommand = f'Solid.BlendEdge "{radius}"'
@@ -601,6 +653,85 @@ class Solid(StructureMacros):
     def Insert(self, Tag, component1, name1, component2, name2):
         sCommand = f'Solid.Insert "{component1}:{name1}", "{component2}:{name2}"'
         self.AddToHistoryWithCommand(Tag, sCommand)
+
+
+class Loft(GeneralModel):
+    Classname = "Loft"
+    Tangency = "0"
+
+    def __init__(self, handle, Tag, Component, Name, Material, Tangency) -> None:
+        super().__init__(handle, Tag, Component, Name, Material)
+        self.Tangency = Tangency
+        self.create()
+
+    def create(self):
+        sCommand = f""" 
+        With Loft
+            .Reset
+            .Name "{self.Name}"
+            .Component "{self.Component}"
+            .Material "{self.Material}"
+            .Tangency "{self.Tangency}"
+            .CreateNew
+        End With"""
+        self.AddToHistoryWithCommand(self.Tag, sCommand)
+        return super().create()
+
+
+class Extrude(GeneralModel):
+    Mode = "Picks"
+    Height = ""
+    Twist = ""
+    Taper = ""
+    UsePicksForHeight = "False"
+    DeleteBaseFaceSolid = "False"
+    KeepMaterial = "False"
+    ClearPickedFace = "True"
+
+    def __init__(
+        self, handle, Tag, Component, Name, Material, Height, Twist, Taper, **kwargs
+    ) -> None:
+        super().__init__(handle, Tag, Component, Name, Material)
+        self.Height = Height
+        self.Twist = Twist
+        self.Taper = Taper
+        for key, value in kwargs.items():
+            match key:
+                case "Mode":
+                    self.Mode = value
+                case "UsePicksForHeight":
+                    self.UsePicksForHeight = value
+                case "DeleteBaseFaceSolid":
+                    self.DeleteBaseFaceSolid = value
+                case "KeepMaterial":
+                    self.KeepMaterial = value
+                case "ClearPickedFace":
+                    self.ClearPickedFace = value
+                case _:
+                    raise ("DameDane")
+        self.Tag = Tag
+        self.create()
+
+    def create(self):
+        sCommand = f"""
+        With Extrude 
+            .Reset 
+            .Name "{self.Name}" 
+            .Component "{self.Component}" 
+            .Material "{self.Material}" 
+            .Mode "{self.Mode}" 
+            .Height "{self.Height}" 
+            .Twist "{self.Twist}" 
+            .Taper "{self.Taper}" 
+            .UsePicksForHeight "{self.UsePicksForHeight}" 
+            .DeleteBaseFaceSolid "{self.DeleteBaseFaceSolid}" 
+            .KeepMaterials "{self.KeepMaterial}" 
+            .ClearPickedFace "{self.ClearPickedFace}" 
+            .Create 
+        End With
+        """
+        self.AddToHistoryWithCommand(self.Tag, sCommand)
+        return super().create()
 
 
 class Port(StructureMacros):
