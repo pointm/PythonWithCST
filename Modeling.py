@@ -56,9 +56,6 @@ class StructureMacros:
         self.mws._FlagAsMethod("AddToHistory")
         self.mws.AddToHistory(Tag, Command)
 
-    def returnmyself(self):
-        return self
-
 
 class Initial(StructureMacros):
     cst = None

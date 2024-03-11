@@ -14,7 +14,7 @@ def DoubleRidgeWaveGuide(
         [f"-{a}/2", f"{a}/2"],
         [f"-{b}/2", f"{b}/2"],
         [length[0], length[1]],
-    ).returnmyself()
+    )
     L = 10
     cutoff = Brick(
         mws,
@@ -25,7 +25,7 @@ def DoubleRidgeWaveGuide(
         [f"-{s}/2", f"{s}/2"],
         [f"{d}/2", f"{b}/2"],
         [length[0], length[1]],
-    ).returnmyself()
+    )
 
     transform = Transform(mws)
     transform.MirrorTransForm(
@@ -81,7 +81,7 @@ parameterspath = os.path.join(path, parametersfilename)
 init.StoreParameters(parameterspath)
 
 # 创建材料Sapphire蓝宝石
-sapphire = Material(mws, "Sapphire", 6.5, 1).returnmyself()
+sapphire = Material(mws, "Sapphire", 6.5, 1)
 # 创建圆柱形窗片
 cylinderwindow = Cylinder(
     mws,
@@ -94,7 +94,7 @@ cylinderwindow = Cylinder(
     "wr",
     [0, 0, 0],
     ["-wt/2", "wt/2"],
-).returnmyself()
+)
 
 # 选取圆柱形窗片中点，将坐标系进行位移
 pick = Pick(mws)
@@ -121,7 +121,7 @@ transportwaveguide = Brick(
     ["-ta/2", "ta/2"],
     ["-tb/2", "tb/2"],
     [0, "trh"],
-).returnmyself()
+)
 
 solid.Add(
     "Add the DRW with the transport waveguide",
