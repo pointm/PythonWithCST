@@ -272,6 +272,7 @@ class Material(StructureMacros):
     MaterialName = ""
     MaterialEpsilon = 0
     MaterialMu = 0
+    Classname = "Material"
 
     def __init__(self, handle, Name, Epsilon, Mu) -> None:
         super().__init__(handle)
@@ -360,6 +361,7 @@ class GeneralModel(StructureMacros):
     Name = ""
     Material = ""
     Tag = ""
+    Classname = "GeneralModel"
 
     def __init__(self, handle, Tag, Component, Name, Material) -> None:
         super().__init__(handle)
@@ -489,6 +491,7 @@ class Cylinder(GeneralModel):
 
 
 class Pick(StructureMacros):
+    Classname = "Pick"
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -520,6 +523,7 @@ class Pick(StructureMacros):
 
 
 class WCS(StructureMacros):
+    Classname = "WCS"
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -536,6 +540,7 @@ class WCS(StructureMacros):
 
 
 class Transform(StructureMacros):
+    Classname = "Transform"
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -577,6 +582,7 @@ class Transform(StructureMacros):
 
 
 class Solid(StructureMacros):
+    Classname = "Solid"
     def __init__(self, handle) -> None:
         super().__init__(handle)
 
@@ -610,6 +616,7 @@ class Port(StructureMacros):
     YrangeAdd = [0, 0]
     Zrange = [0, 0]
     ZrangeAdd = [0, 0]
+    Classname = "Port"
 
     def __init__(self, handle, Tag, Range, PortNumber, **kwargs) -> None:
         super().__init__(handle)
