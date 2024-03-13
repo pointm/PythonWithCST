@@ -4,7 +4,7 @@
   Simulation point         :	9 GHz
 ----------------------------------------------------------------------
   Solver time w/o ref.     :	0 s
-  Mesh refinement time     :	1 s
+  Mesh refinement time     :	2 s
   Number of mesh cells     :	2094
 ----------------------------------------------------------------------
 
@@ -17,7 +17,7 @@
   Mesh refinement time     :	1 s
   Number of mesh cells     :	2960
   Delta calculation        
-  All S-Parameters         :	0.0159156
+  All S-Parameters         :	0.0159154
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -29,7 +29,7 @@
   Mesh refinement time     :	0 s
   Number of mesh cells     :	4552
   Delta calculation        
-  All S-Parameters         :	0.0111864
+  All S-Parameters         :	0.0111897
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
