@@ -121,35 +121,39 @@ class Initial(StructureMacros):
     def StoreParameters(self, parameterspath, encodewith="utf-8"):
         # 首先将指定路径的文件一行一行的读取出来
         # 文件可以是CST直接导出的变量文件
-        originalparameters = open(parameterspath, encoding=encodewith).readlines()
+        # 创建一个空字典来存储变量信息
+        variables = {}
 
-        # 将处理好的参数储存到parameters列表里面，列表的每一行都是一个参数
-        # 并且将参数与其值和备注直接分开，接受后续的处理
-        parameters = []
-        for item in originalparameters:
-            item = item.replace("\n", "")  # 去除换行符
-            item = re.sub("[= ]", "#", item)  # 将没用的符号批量置换成分隔符
-            item = item.split("#")  # 按照分隔符分开整行
-            parameters.append(item)
-
-        # 将处理好的变量列表存储到应用中
-        sCommand = ""
-        for parameter in parameters:
-            if parameter == [""]:
-                # 过滤掉文件开头或者结尾的空行
-                pass
-            else:
-                sCommand = (
-                    sCommand
-                    + """  
-            MakeSureParameterExists("{0}", {1})
-            SetParameterDescription  ( "{2}", {3} )
-        """.format(
-                        parameter[0], parameter[1], parameter[0], parameter[2]
-                    )
+        # 打开文件并读取每一行
+        with open(parameterspath, "r", encoding=encodewith) as f:
+            for line in f:
+                if line.strip() == "":#如果有空行，那么就跳过这个循环，也就跳过空行了
+                    continue
+                # 分割每一行并获取变量名和值
+                parts = line.split("=")
+                var_name = parts[0].strip()
+                var_value, var_description = (
+                    parts[1].split('"')[1],
+                    parts[1].split('"')[3],
                 )
-        # print(sCommand)
-        self.AddToHistoryWithCommand(Tag="StoreParameters", Command=sCommand)
+                # 将变量名、值和描述存储在字典中
+                variables[var_name] = {
+                    "value": var_value,
+                    "description": var_description,
+                }
+        self.ProcessingDictionary(variables)
+        return variables
+
+    def ProcessingDictionary(self, variables):
+        sCommand = ""
+        for key, value in variables.items():
+            sCommand += """  
+                MakeSureParameterExists("{0}", "{1}")
+                SetParameterDescription  ( "{2}", "{3}" )
+            """.format(
+                key, value["value"], key, value["description"]
+            )
+        self.AddToHistoryWithCommand("Storeparameters", sCommand)
 
     def UseTemplate(self, Template, FrequencyRange):
         if Template == "WaveGuide And Cavity Filter":
